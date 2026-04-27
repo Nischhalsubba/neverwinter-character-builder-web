@@ -1,0 +1,20 @@
+{
+  "name": "neverwinter-character-builder-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static web version of a Neverwinter Excel character builder with DPS, Heal, and Tank calculators.",
+  "scripts": {
+    "start": "python -m http.server 5173",
+    "test": "node tests/verify-formulas.mjs"
+  },
+  "keywords": [
+    "neverwinter",
+    "character-builder",
+    "dps",
+    "tank",
+    "healer",
+    "formula-engine",
+    "static-site"
+  ],
+  "license": "UNLICENSED"
+}
