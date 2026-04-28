@@ -1,7 +1,7 @@
 /*
   Runtime icon binder for Neverwinter Character Builder.
-  This deliberately runs after app.js and re-binds icons from window.NW_ASSETS to every rendered label.
-  Reason: labels are generated dynamically from the workbook, so this guarantees the uploaded ZIP icons are attached to the correct visible labels after every re-render.
+  Runs after app.js and re-binds icons from window.NW_ASSETS to every rendered label.
+  Supports direct src and srcCandidates so uploaded files with spaces/typos can be tried safely.
 */
 (function () {
   const IGNORED_LABELS = new Set(['', 'Stat', 'Value', 'Class', 'Enable', 'Misc', 'Used?', 'Buff']);
@@ -49,8 +49,11 @@
       'avian auras': 'Avian Aura(s)',
       'captain sartell': 'Captain Sartell',
       'startel': 'Captain Sartell',
+      'sartell': 'Captain Sartell',
       'portebelo': 'Portobello',
+      'portobello': 'Portobello',
       'driz': 'Drizzt',
+      'drizzt': 'Drizzt',
       'minsc icon': 'Minsc',
       'raptor icon': 'Raptor',
       'guild power boon': 'Guild Power',
@@ -60,7 +63,7 @@
     };
 
     Object.entries(aliases).forEach(([alias, target]) => {
-      const asset = source[target] || source[aliases[alias]];
+      const asset = source[target];
       if (asset) map.set(normalizeLabel(alias), asset);
     });
 
@@ -82,22 +85,39 @@
     return node;
   }
 
+  function assetSources(asset) {
+    if (!asset) return [];
+    const list = [];
+    if (Array.isArray(asset.srcCandidates)) list.push(...asset.srcCandidates);
+    if (asset.src) list.unshift(asset.src);
+    return [...new Set(list.filter(Boolean))];
+  }
+
   function createIcon(label, asset) {
-    if (!asset || !asset.src) return createFallback(label, asset);
+    const sources = assetSources(asset);
+    if (!sources.length) return createFallback(label, asset);
 
     const wrap = document.createElement('span');
     wrap.className = 'field-art-icon';
     wrap.title = label;
 
     const img = document.createElement('img');
-    img.src = asset.src;
     img.alt = `${label} icon`;
     img.loading = 'lazy';
     img.decoding = 'async';
+    img.dataset.sourceIndex = '0';
+
     img.onerror = function () {
-      wrap.replaceWith(createFallback(label, asset));
+      const nextIndex = Number(img.dataset.sourceIndex || '0') + 1;
+      if (nextIndex < sources.length) {
+        img.dataset.sourceIndex = String(nextIndex);
+        img.src = sources[nextIndex];
+      } else {
+        wrap.replaceWith(createFallback(label, asset));
+      }
     };
 
+    img.src = sources[0];
     wrap.appendChild(img);
     return wrap;
   }
