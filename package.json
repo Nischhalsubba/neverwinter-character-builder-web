@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "Static web version of a Neverwinter Excel character builder with DPS, Heal, and Tank calculators.",
+  "type": "module",
   "scripts": {
+    "build": "node scripts/build.mjs",
     "start": "python -m http.server 5173",
     "test": "node tests/verify-formulas.mjs"
   },
