@@ -1,61 +1,507 @@
-const workbook={source:'NW Char Builder.xlsx',sheets:JSON.parse(JSON.stringify(window.WORKBOOK_SHEETS||[]))};
-let activeSheetIndex=1,showFormula=false,formulaTarget='';
-let calcCache=new Map();
-const app=document.getElementById('app');
-const letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const sheetLayouts={
-  'DPS Template':{gear:['A3','R10'],results:['A17','C23'],damage:['A13','B14'],buffs:['E13','I28'],classRace:['K13','O22'],misc:['Q13','R28']},
-  'MSOD DPS Template':{gear:['A3','R10'],results:['A17','C23'],damage:['A13','B14'],buffs:['E13','I28'],classRace:['K13','O22'],misc:['Q13','R28']},
-  'HEAL Template':{gear:['A3','R8'],results:['A11','C16'],buffs:['E11','I23'],classRace:['K11','L25'],misc:['N11','O23']},
-  'TANK Template':{gear:['A3','R9'],results:['A12','C18'],buffs:['E12','I24'],classRace:['K12','L24'],misc:['N12','O27']}
+const workbook = {
+  source: 'NW Char Builder.xlsx',
+  sheets: JSON.parse(JSON.stringify(window.WORKBOOK_SHEETS || []))
 };
-function colName(n){let s='';while(n){n--;s=letters[n%26]+s;n=Math.floor(n/26)}return s}
-function colNum(col){let n=0;for(const ch of col){n=n*26+ch.charCodeAt(0)-64}return n}
-function addrParts(addr){const m=String(addr).match(/^([A-Z]+)(\d+)$/);return{col:colNum(m[1]),row:Number(m[2])}}
-function eachAddrInRange(ref){const[a,b]=ref.split(':');const A=addrParts(a),B=addrParts(b),out=[];for(let r=Math.min(A.row,B.row);r<=Math.max(A.row,B.row);r++){for(let c=Math.min(A.col,B.col);c<=Math.max(A.col,B.col);c++)out.push(colName(c)+r)}return out}
-function rangeBounds(start,end){const A=addrParts(start),B=addrParts(end);return{r1:Math.min(A.row,B.row),r2:Math.max(A.row,B.row),c1:Math.min(A.col,B.col),c2:Math.max(A.col,B.col)}}
-function getSheet(){return workbook.sheets[activeSheetIndex]}
-function readCell(sheet,addr){return sheet.cells[addr]||{v:''}}
-function asNumber(v){if(v===true)return 1;if(v===false)return 0;if(v===''||v==null)return 0;if(typeof v==='number')return Number.isFinite(v)?v:0;const n=Number(v);return Number.isFinite(n)?n:0}
-function displayValue(v){if(v===''||v==null)return'';if(v==='#ERR'||v==='#CYCLE')return v;if(typeof v==='number'){if(Math.abs(v-Math.round(v))<1e-10)return String(Math.round(v));return String(Math.round(v*1000000)/1000000)}return String(v)}
-function isNumeric(v){return v!==''&&v!=null&&!Number.isNaN(Number(v))}
-function isEmptyCell(cell){return !cell.f&&(cell.v===''||cell.v==null)}
-function evaluateCell(sheet,addr,stack=[]){const key=sheet.name+'!'+addr;if(calcCache.has(key))return calcCache.get(key);if(stack.includes(key))return'#CYCLE';const cell=readCell(sheet,addr);if(!cell.f)return cell.v??'';try{const val=evaluateFormula(sheet,cell.f,[...stack,key]);calcCache.set(key,val);return val}catch(err){return'#ERR'}}
-function evaluateFormula(sheet,formula,stack){let f=String(formula).replace(/\r?\n/g,'').replace(/\s+/g,'');if(f.startsWith('='))f=f.slice(1);const ranges=[];f=f.replace(/\b([A-Z]{1,3}\d+):([A-Z]{1,3}\d+)\b/g,m=>{const token='__RANGE_'+ranges.length+'__';ranges.push(m);return token});f=f.replace(/\b([A-Z]{1,3}\d+)\b/g,m=>`cell("${m}")`);ranges.forEach((r,i)=>{f=f.replace('__RANGE_'+i+'__',`range("${r}")`)});f=f.replace(/\bSUM\(/gi,'SUM(').replace(/\bMIN\(/gi,'MIN(').replace(/\bROUND\(/gi,'ROUND(');const cell=a=>asNumber(evaluateCell(sheet,a,stack));const range=r=>eachAddrInRange(r).map(a=>asNumber(evaluateCell(sheet,a,stack)));const SUM=(...args)=>args.flat(Infinity).reduce((a,b)=>a+asNumber(b),0);const MIN=(...args)=>Math.min(...args.flat(Infinity).map(asNumber));const ROUND=(n,d=0)=>{const p=Math.pow(10,asNumber(d));return Math.round(asNumber(n)*p)/p};return Function('cell','range','SUM','MIN','ROUND',`return (${f});`)(cell,range,SUM,MIN,ROUND)}
-function recalc(){calcCache=new Map();for(const sheet of workbook.sheets){for(const addr of Object.keys(sheet.cells)){const cell=sheet.cells[addr];if(cell.f)cell.calc=evaluateCell(sheet,addr,[])}}}
-function valueAt(sheet,addr){const c=readCell(sheet,addr);return c.f?c.calc:c.v}
-function assetFor(name){const key=String(name||'').trim();return (window.NW_ASSETS&&window.NW_ASSETS.items&&window.NW_ASSETS.items[key])||null}
-function iconFallbackText(key,asset){return (asset&&asset.icon)||String(key||'').split(/\s+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()||'NW'}
-function iconFallbackHtml(key,asset){return`<span class="field-icon" aria-hidden="true">${escapeHtml(iconFallbackText(key,asset))}</span>`}
-function iconHtml(name){const key=String(name||'').trim();const asset=assetFor(key);if(!key||['Stat','Value','Class','Enable','Misc'].includes(key))return'';if(asset&&asset.src){const fallback=escapeAttr(iconFallbackText(key,asset));return`<img class="field-icon-img" src="${escapeAttr(asset.src)}" alt="${escapeAttr(key)} icon" data-fallback="${fallback}" loading="lazy" onerror="this.outerHTML='<span class=&quot;field-icon&quot; aria-hidden=&quot;true&quot;>'+this.dataset.fallback+'</span>'">`}return iconFallbackHtml(key,asset)}
-function labelWithIcon(text){return`${iconHtml(text)}<span class="label-copy">${escapeHtml(displayValue(text))}</span>`}
-function cellClass(cell){if(cell.f)return'formula-field';if(typeof cell.v==='boolean')return'check-field';if(typeof cell.v==='string'&&cell.v.trim()!==''&&!isNumeric(cell.v))return'label-field';if(isEmptyCell(cell))return'empty-field';return'input-field'}
-function canEdit(cell){if(cell.f)return false;if(typeof cell.v==='boolean')return true;if(typeof cell.v==='string'&&cell.v.trim()!==''&&!isNumeric(cell.v))return false;return true}
-function updateCell(addr,value,type){const sheet=getSheet();if(!sheet.cells[addr])sheet.cells[addr]={v:''};if(type==='checkbox')sheet.cells[addr].v=Boolean(value);else{const v=String(value).trim();sheet.cells[addr].v=v===''?'':(!Number.isNaN(Number(v))?Number(v):v)}render()}
-function formulaRefs(formula){const refs=[];String(formula).replace(/\b([A-Z]{1,3}\d+):([A-Z]{1,3}\d+)\b/g,m=>{refs.push(...eachAddrInRange(m));return' '}).replace(/\b([A-Z]{1,3}\d+)\b/g,m=>{refs.push(m);return m});return[...new Set(refs)]}
-function nearestHeader(sheet,col,row){for(let r=row-1;r>=1;r--){const v=valueAt(sheet,colName(col)+r);if(typeof v==='string'&&v.trim()!==''&&!isNumeric(v))return v}return''}
-function sourceLabel(sheet,addr){const p=addrParts(addr),c=colName(p.col);const left=p.col>1?valueAt(sheet,colName(p.col-1)+p.row):'';const rowA=valueAt(sheet,'A'+p.row),rowE=valueAt(sheet,'E'+p.row),rowH=valueAt(sheet,'H'+p.row),rowK=valueAt(sheet,'K'+p.row),rowN=valueAt(sheet,'N'+p.row),rowQ=valueAt(sheet,'Q'+p.row);if(addr==='B1')return'Item Level';if(['F','I','L','O','R'].includes(c)&&left)return`${displayValue(left)} toggle`;if(rowA&&p.col>=2){const h=valueAt(sheet,c+'3')||valueAt(sheet,c+'17')||valueAt(sheet,c+'11')||valueAt(sheet,c+'12')||valueAt(sheet,c+'21')||valueAt(sheet,c+'26')||nearestHeader(sheet,p.col,p.row);return h?`${displayValue(rowA)} from ${displayValue(h)}`:displayValue(rowA)}if(left)return `${displayValue(left)} value`;const rowLabel=rowE||rowH||rowK||rowN||rowQ;if(rowLabel)return displayValue(rowLabel);const h=nearestHeader(sheet,p.col,p.row);return h?`${displayValue(h)} ${addr}`:addr}
-function buildBreakdown(sheet,addr){const cell=readCell(sheet,addr);const result=displayValue(valueAt(sheet,addr));if(!cell.f)return`${sourceLabel(sheet,addr)} = ${result}\nManual input: this value is typed directly by the user.`;const refs=formulaRefs(cell.f);let lines=[],hidden=0;for(const ref of refs){const dep=readCell(sheet,ref);const raw=valueAt(sheet,ref);const isBlank=raw===''||raw==null;const isZero=asNumber(raw)===0&&!dep.f&&typeof raw!=='boolean';const isFalse=raw===false;if(isBlank||isZero||isFalse){hidden++;continue}let suffix=dep.f?' calculated':'';if(raw===true)suffix=' enabled';lines.push(`• ${sourceLabel(sheet,ref)} (${ref}) = ${displayValue(raw)}${suffix}`)}if(!lines.length)lines.push('• No active non-zero source values found.');if(hidden)lines.push(`• ${hidden} blank, zero, or disabled source cell(s) hidden.`);return`${sourceLabel(sheet,addr)} (${addr}) = ${result}\n\nUses these source values:\n${lines.join('\n')}`}
-function tipFor(addr,cell,label=''){const sheet=getSheet();const name=label?`${label} `:'';if(cell.f)return`${name}${sheet.name}!${addr} is calculated. Click to see contribution breakdown instead of Excel formula.`;if(typeof cell.v==='boolean')return`${name}${sheet.name}!${addr} is a toggle. ON counts as 1 and OFF counts as 0 in formulas.`;if(typeof cell.v==='string'&&cell.v.trim()!==''&&!isNumeric(cell.v))return`${name}${sheet.name}!${addr} is a label.`;return`${name}${sheet.name}!${addr} is a manual input. Enter the same value you would type in Excel.`}
-function render(){recalc();const sheet=getSheet();if(sheet.name==='README'){renderReadme(sheet);return}const layout=sheetLayouts[sheet.name]||sheetLayouts['DPS Template'];app.innerHTML=`${renderHeader(sheet)}${renderTabs()}${renderToolbar()}${renderSummary(sheet,layout)}<main class="builder-layout"><section class="main-stack">${renderRangeCard(sheet,'Gear & rating inputs','Enter base ratings and each gear-slot bonus manually. Calculated fields stay locked.',layout.gear,'wide-table','matrix')}${layout.damage?renderRangeCard(sheet,'Damage estimator','Magnitude is editable. Average hit is calculated from active workbook sources.',layout.damage,'compact-table','matrix'):''}${renderRangeCard(sheet,'Self & team buffs','Turn on the buffs you expect for the content. Empty workbook spacer cells are hidden.',layout.buffs,'compact-table','buffs')}</section><aside class="side-stack">${renderRangeCard(sheet,'Final results','Calculated outputs from workbook sources. Click gold fields to see contribution breakdown.',layout.results,'result-table','matrix')}${renderRangeCard(sheet,'Class & race','Enable only the class/race options that apply to your character.',layout.classRace,'compact-table','classRace')}${renderRangeCard(sheet,'Misc values','Attributes, collars, aura counts, boon totals, and misc toggles.',layout.misc,'compact-table','misc')}</aside></main>`;bind()}
-function renderHeader(sheet){return`<header class="topbar"><div><p class="eyebrow">Neverwinter Builder</p><h1>${escapeHtml(sheet.name)}</h1><p class="sub">A redesigned manual calculator with the same workbook behavior underneath. Add your bonuses, toggle buffs, and click any gold calculated field to see where the result comes from.</p></div><div class="status-card"><span>Calculator Source</span><strong>${escapeHtml(workbook.source)}</strong><small>${Object.keys(sheet.cells).length} workbook cells loaded</small></div></header>`}
-function renderTabs(){return`<nav class="tabs">${workbook.sheets.map((s,i)=>`<button class="${i===activeSheetIndex?'active':''}" data-sheet="${i}" title="Open ${escapeAttr(s.name)}">${escapeHtml(s.name.replace(' Template',''))}</button>`).join('')}</nav>`}
-function renderToolbar(){return`<div class="toolbar"><button id="toggleFormula">${showFormula?'Show calculated values':'Show breakdown mode'}</button><button id="exportBuild">Export JSON</button><label class="import-label">Import JSON<input id="importBuild" type="file" accept="application/json"></label><span class="hint">${formulaTarget?escapeHtml(formulaTarget):'Tip: broken image URLs now fall back to clean icon initials, so the UI should not show broken image symbols.'}</span></div>`}
-function renderSummary(sheet,layout){const b=rangeBounds(layout.results[0],layout.results[1]);let cards='';for(let r=b.r1+1;r<=b.r2;r++){const name=valueAt(sheet,'A'+r);const final=valueAt(sheet,'C'+r);if(name!==''&&final!=='')cards+=`<article class="metric has-tip" data-tip="Click the matching gold result field below to see its contribution breakdown."><span>${labelWithIcon(name)}</span><strong>${escapeHtml(displayValue(final))}%</strong><small>Final calculated value</small></article>`}return`<section class="summary-grid">${cards}</section>`}
-function renderRangeCard(sheet,title,desc,range,type,mode='matrix'){return`<section class="section-card"><div class="section-head"><div><h2>${escapeHtml(title)}</h2><p>${escapeHtml(desc)}</p></div></div><div class="table-scroll"><table class="manual-table ${type}">${renderTableByMode(sheet,range,mode)}</table></div></section>`}
-function renderTableByMode(sheet,range,mode){if(mode==='buffs')return renderBuffTable(sheet,range);if(mode==='classRace')return renderClassRaceTable(sheet,range);if(mode==='misc')return renderMiscTable(sheet,range);return renderRangeTable(sheet,range[0],range[1],mode)}
-function renderRangeTable(sheet,start,end,mode='matrix'){const b=rangeBounds(start,end);let html='';for(let r=b.r1;r<=b.r2;r++){html+='<tr>';for(let c=b.c1;c<=b.c2;c++){const addr=colName(c)+r;const cell=readCell(sheet,addr);const cls=cellClass(cell);const val=cell.f?(showFormula?'View breakdown':(cell.calc??'')):(cell.v??'');const tag=r===b.r1?'th':'td';html+=`<${tag} class="field ${cls} has-tip" data-tip="${escapeAttr(tipFor(addr,cell))}" data-addr="${addr}">`;html+=renderCellControl(addr,cell,val,{allowEmptyInput:mode==='matrix'});html+=`</${tag}>`}html+='</tr>'}return html}
-function renderBuffTable(sheet,range){const b=rangeBounds(range[0],range[1]);const c1=colName(b.c1),c2=colName(b.c1+1),c3=colName(b.c1+3),c4=colName(b.c1+4);let html=`<tr><th>Self buff</th><th>Used?</th><th>Team buff</th><th>Used?</th></tr>`;for(let r=b.r1+1;r<=b.r2;r++){const left=readCell(sheet,c1+r),leftToggle=readCell(sheet,c2+r),right=readCell(sheet,c3+r),rightToggle=readCell(sheet,c4+r);if(isEmptyCell(left)&&isEmptyCell(right))continue;html+='<tr>';html+=renderPairName(sheet,c1+r,left,'Self buff');html+=renderPairControl(c2+r,leftToggle,'Self buff toggle');html+=renderPairName(sheet,c3+r,right,'Team buff');html+=renderPairControl(c4+r,rightToggle,'Team buff toggle');html+='</tr>'}return html}
-function renderClassRaceTable(sheet,range){const b=rangeBounds(range[0],range[1]);const c1=colName(b.c1),c2=colName(b.c1+1),c3=colName(b.c1+3),c4=colName(b.c1+4);let html=`<tr><th>Class</th><th>Enable</th><th>Race</th><th>Enable</th></tr>`;for(let r=b.r1+1;r<=b.r2;r++){const left=readCell(sheet,c1+r),leftToggle=readCell(sheet,c2+r),right=readCell(sheet,c3+r),rightToggle=readCell(sheet,c4+r);if(isEmptyCell(left)&&isEmptyCell(right))continue;html+='<tr>';html+=renderPairName(sheet,c1+r,left,'Class option');html+=renderPairControl(c2+r,leftToggle,'Class toggle');html+=renderPairName(sheet,c3+r,right,'Race option');html+=renderPairControl(c4+r,rightToggle,'Race toggle');html+='</tr>'}return html}
-function renderMiscTable(sheet,range){const b=rangeBounds(range[0],range[1]);const c1=colName(b.c1),c2=colName(b.c2);let html='<tr><th>Item</th><th>Value / Enable</th></tr>';for(let r=b.r1+1;r<=b.r2;r++){const name=readCell(sheet,c1+r),val=readCell(sheet,c2+r);if(isEmptyCell(name)&&isEmptyCell(val))continue;const nameText=displayValue(valueAt(sheet,c1+r)),valText=displayValue(valueAt(sheet,c2+r));if((nameText==='Stat'&&valText==='Value')||(nameText==='Misc'&&valText==='Enable')){html+=`<tr><th colspan="2" class="subsection-row">${escapeHtml(nameText)} / ${escapeHtml(valText)}</th></tr>`;continue}html+='<tr>';html+=renderPairName(sheet,c1+r,name,'Misc item');html+=renderPairControl(c2+r,val,'Misc value');html+='</tr>'}return html}
-function renderPairName(sheet,addr,cell,label){if(isEmptyCell(cell))return`<td class="field empty-field"></td>`;const val=valueAt(sheet,addr);return`<td class="field label-field has-tip" data-tip="${escapeAttr(tipFor(addr,cell,label))}"><span class="label-text label-with-icon">${labelWithIcon(val)}</span></td>`}
-function renderPairControl(addr,cell,label){if(isEmptyCell(cell))return`<td class="field empty-field has-tip" data-tip="No input is needed here. This workbook cell is empty and not used by the calculator."><span class="empty-note">—</span></td>`;const val=cell.f?(showFormula?'View breakdown':(cell.calc??'')):(cell.v??'');const cls=cellClass(cell);return`<td class="field ${cls} has-tip" data-tip="${escapeAttr(tipFor(addr,cell,label))}">${renderCellControl(addr,cell,val,{allowEmptyInput:false})}</td>`}
-function renderCellControl(addr,cell,val,opts={}){if(cell.f)return`<button class="formula-button" data-formula="${addr}" title="${escapeAttr(tipFor(addr,cell))}"><span>${escapeHtml(displayValue(val))}</span><small>${showFormula?'Breakdown':addr}</small></button>`;if(typeof cell.v==='boolean')return`<label class="switch" title="${escapeAttr(tipFor(addr,cell))}"><input type="checkbox" data-edit-check="${addr}" ${cell.v?'checked':''}><span></span></label>`;if(isEmptyCell(cell)&&!opts.allowEmptyInput)return`<span class="empty-note">—</span>`;if(canEdit(cell))return`<input data-edit="${addr}" title="${escapeAttr(tipFor(addr,cell))}" value="${escapeAttr(displayValue(val))}">`;return`<span class="label-text label-with-icon">${labelWithIcon(displayValue(val))}</span>`}
-function renderReadme(sheet){const lines=[];for(let r=1;r<=sheet.maxRow;r++){const v=valueAt(sheet,'A'+r);if(v)lines.push(`<li>${escapeHtml(displayValue(v))}</li>`)}app.innerHTML=`${renderHeader(sheet)}${renderTabs()}<main class="readme-card"><h2>Workbook instructions</h2><ol>${lines.join('')}</ol></main>`;bindTabsOnly()}
-function bind(){bindTabsOnly();document.querySelectorAll('[data-edit]').forEach(input=>{input.addEventListener('change',()=>updateCell(input.dataset.edit,input.value,'text'));input.addEventListener('keydown',e=>{if(e.key==='Enter')input.blur()})});document.querySelectorAll('[data-edit-check]').forEach(input=>input.addEventListener('change',()=>updateCell(input.dataset.editCheck,input.checked,'checkbox')));document.querySelectorAll('[data-formula]').forEach(btn=>btn.addEventListener('click',()=>{formulaTarget=buildBreakdown(getSheet(),btn.dataset.formula);render()}));document.getElementById('toggleFormula').onclick=()=>{showFormula=!showFormula;render()};document.getElementById('exportBuild').onclick=exportJson;document.getElementById('importBuild').onchange=importJson}
-function bindTabsOnly(){document.querySelectorAll('[data-sheet]').forEach(btn=>btn.onclick=()=>{activeSheetIndex=Number(btn.dataset.sheet);formulaTarget='';render()})}
-function exportJson(){const blob=new Blob([JSON.stringify(workbook,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='neverwinter-build.json';a.click();URL.revokeObjectURL(a.href)}
-function importJson(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const imported=JSON.parse(reader.result);if(imported.sheets){workbook.sheets=imported.sheets;activeSheetIndex=Math.min(activeSheetIndex,workbook.sheets.length-1);render()}else alert('Invalid workbook JSON')}catch(err){alert('Could not import JSON')}};reader.readAsText(file)}
-function escapeHtml(s){return String(s).replace(/[&<>"]/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))}
-function escapeAttr(s){return escapeHtml(s).replace(/'/g,'&#39;')}
+
+let activeSheetIndex = 1;
+let showFormula = false;
+let formulaTarget = '';
+let calcCache = new Map();
+
+const app = document.getElementById('app');
+const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+const sheetLayouts = {
+  'DPS Template': { gear: ['A3', 'R10'], results: ['A17', 'C23'], damage: ['A13', 'B14'], buffs: ['E13', 'I28'], classRace: ['K13', 'O22'], misc: ['Q13', 'R28'] },
+  'MSOD DPS Template': { gear: ['A3', 'R10'], results: ['A17', 'C23'], damage: ['A13', 'B14'], buffs: ['E13', 'I28'], classRace: ['K13', 'O22'], misc: ['Q13', 'R28'] },
+  'HEAL Template': { gear: ['A3', 'R8'], results: ['A11', 'C16'], buffs: ['E11', 'I23'], classRace: ['K11', 'L25'], misc: ['N11', 'O23'] },
+  'TANK Template': { gear: ['A3', 'R9'], results: ['A12', 'C18'], buffs: ['E12', 'I24'], classRace: ['K12', 'L24'], misc: ['N12', 'O27'] }
+};
+
+const ICON_SECTIONS = new Set(['buffs', 'classRace']);
+
+function colName(n) {
+  let s = '';
+  while (n) {
+    n--;
+    s = letters[n % 26] + s;
+    n = Math.floor(n / 26);
+  }
+  return s;
+}
+
+function colNum(col) {
+  let n = 0;
+  for (const ch of col) n = n * 26 + ch.charCodeAt(0) - 64;
+  return n;
+}
+
+function addrParts(addr) {
+  const m = String(addr).match(/^([A-Z]+)(\d+)$/);
+  return { col: colNum(m[1]), row: Number(m[2]) };
+}
+
+function eachAddrInRange(ref) {
+  const [a, b] = ref.split(':');
+  const A = addrParts(a);
+  const B = addrParts(b);
+  const out = [];
+  for (let r = Math.min(A.row, B.row); r <= Math.max(A.row, B.row); r++) {
+    for (let c = Math.min(A.col, B.col); c <= Math.max(A.col, B.col); c++) out.push(colName(c) + r);
+  }
+  return out;
+}
+
+function rangeBounds(start, end) {
+  const A = addrParts(start);
+  const B = addrParts(end);
+  return { r1: Math.min(A.row, B.row), r2: Math.max(A.row, B.row), c1: Math.min(A.col, B.col), c2: Math.max(A.col, B.col) };
+}
+
+function getSheet() { return workbook.sheets[activeSheetIndex]; }
+function readCell(sheet, addr) { return sheet.cells[addr] || { v: '' }; }
+
+function asNumber(v) {
+  if (v === true) return 1;
+  if (v === false) return 0;
+  if (v === '' || v == null) return 0;
+  if (typeof v === 'number') return Number.isFinite(v) ? v : 0;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function displayValue(v) {
+  if (v === '' || v == null) return '';
+  if (v === '#ERR' || v === '#CYCLE') return v;
+  if (typeof v === 'number') {
+    if (Math.abs(v - Math.round(v)) < 1e-10) return String(Math.round(v));
+    return String(Math.round(v * 1000000) / 1000000);
+  }
+  return String(v);
+}
+
+function isNumeric(v) { return v !== '' && v != null && !Number.isNaN(Number(v)); }
+function isEmptyCell(cell) { return !cell.f && (cell.v === '' || cell.v == null); }
+
+function evaluateCell(sheet, addr, stack = []) {
+  const key = sheet.name + '!' + addr;
+  if (calcCache.has(key)) return calcCache.get(key);
+  if (stack.includes(key)) return '#CYCLE';
+  const cell = readCell(sheet, addr);
+  if (!cell.f) return cell.v ?? '';
+  try {
+    const val = evaluateFormula(sheet, cell.f, [...stack, key]);
+    calcCache.set(key, val);
+    return val;
+  } catch (err) {
+    return '#ERR';
+  }
+}
+
+function evaluateFormula(sheet, formula, stack) {
+  let f = String(formula).replace(/\r?\n/g, '').replace(/\s+/g, '');
+  if (f.startsWith('=')) f = f.slice(1);
+
+  const ranges = [];
+  f = f.replace(/\b([A-Z]{1,3}\d+):([A-Z]{1,3}\d+)\b/g, (m) => {
+    const token = '__RANGE_' + ranges.length + '__';
+    ranges.push(m);
+    return token;
+  });
+  f = f.replace(/\b([A-Z]{1,3}\d+)\b/g, (m) => `cell("${m}")`);
+  ranges.forEach((r, i) => { f = f.replace('__RANGE_' + i + '__', `range("${r}")`); });
+  f = f.replace(/\bSUM\(/gi, 'SUM(').replace(/\bMIN\(/gi, 'MIN(').replace(/\bROUND\(/gi, 'ROUND(');
+
+  const cell = (a) => asNumber(evaluateCell(sheet, a, stack));
+  const range = (r) => eachAddrInRange(r).map((a) => asNumber(evaluateCell(sheet, a, stack)));
+  const SUM = (...args) => args.flat(Infinity).reduce((a, b) => a + asNumber(b), 0);
+  const MIN = (...args) => Math.min(...args.flat(Infinity).map(asNumber));
+  const ROUND = (n, d = 0) => {
+    const p = Math.pow(10, asNumber(d));
+    return Math.round(asNumber(n) * p) / p;
+  };
+
+  return Function('cell', 'range', 'SUM', 'MIN', 'ROUND', `return (${f});`)(cell, range, SUM, MIN, ROUND);
+}
+
+function recalc() {
+  calcCache = new Map();
+  for (const sheet of workbook.sheets) {
+    for (const addr of Object.keys(sheet.cells)) {
+      const cell = sheet.cells[addr];
+      if (cell.f) cell.calc = evaluateCell(sheet, addr, []);
+    }
+  }
+}
+
+function valueAt(sheet, addr) {
+  const c = readCell(sheet, addr);
+  return c.f ? c.calc : c.v;
+}
+
+function normalizeKey(value) {
+  return String(value || '')
+    .trim()
+    .toLowerCase()
+    .replace(/&/g, 'and')
+    .replace(/\(s\)/g, 's')
+    .replace(/[.#_\-]+/g, ' ')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function assetFor(name) {
+  const key = String(name || '').trim();
+  const items = window.NW_ASSETS && window.NW_ASSETS.items;
+  if (!items) return null;
+  if (items[key]) return items[key];
+  const wanted = normalizeKey(key);
+  return Object.entries(items).find(([label]) => normalizeKey(label) === wanted)?.[1] || null;
+}
+
+function iconFallbackText(key, asset) {
+  return (asset && asset.icon) || String(key || '').split(/\s+/).map((w) => w[0]).join('').slice(0, 3).toUpperCase() || 'NW';
+}
+
+function iconHtml(name, allowIcon = false) {
+  if (!allowIcon) return '';
+  const key = String(name || '').trim();
+  const asset = assetFor(key);
+  if (!key || ['Stat', 'Value', 'Class', 'Enable', 'Misc'].includes(key)) return '';
+  if (asset && asset.src) {
+    const fallback = escapeAttr(iconFallbackText(key, asset));
+    const candidates = Array.isArray(asset.srcCandidates) ? asset.srcCandidates : [asset.src];
+    return `<img class="field-icon-img" src="${escapeAttr(candidates[0])}" alt="${escapeAttr(key)} icon" data-fallback="${fallback}" loading="lazy" decoding="async" onerror="this.outerHTML='<span class=&quot;field-icon&quot; aria-hidden=&quot;true&quot;>'+this.dataset.fallback+'</span>'">`;
+  }
+  return '';
+}
+
+function labelText(text, allowIcon = false) {
+  return `${iconHtml(text, allowIcon)}<span class="label-copy">${escapeHtml(displayValue(text))}</span>`;
+}
+
+function cellClass(cell) {
+  if (cell.f) return 'formula-field';
+  if (typeof cell.v === 'boolean') return 'check-field';
+  if (typeof cell.v === 'string' && cell.v.trim() !== '' && !isNumeric(cell.v)) return 'label-field';
+  if (isEmptyCell(cell)) return 'empty-field';
+  return 'input-field';
+}
+
+function canEdit(cell) {
+  if (cell.f) return false;
+  if (typeof cell.v === 'boolean') return true;
+  if (typeof cell.v === 'string' && cell.v.trim() !== '' && !isNumeric(cell.v)) return false;
+  return true;
+}
+
+function updateCell(addr, value, type) {
+  const sheet = getSheet();
+  if (!sheet.cells[addr]) sheet.cells[addr] = { v: '' };
+  if (type === 'checkbox') sheet.cells[addr].v = Boolean(value);
+  else {
+    const v = String(value).trim();
+    sheet.cells[addr].v = v === '' ? '' : (!Number.isNaN(Number(v)) ? Number(v) : v);
+  }
+  render();
+}
+
+function formulaRefs(formula) {
+  const refs = [];
+  String(formula)
+    .replace(/\b([A-Z]{1,3}\d+):([A-Z]{1,3}\d+)\b/g, (m) => { refs.push(...eachAddrInRange(m)); return ' '; })
+    .replace(/\b([A-Z]{1,3}\d+)\b/g, (m) => { refs.push(m); return m; });
+  return [...new Set(refs)];
+}
+
+function nearestHeader(sheet, col, row) {
+  for (let r = row - 1; r >= 1; r--) {
+    const v = valueAt(sheet, colName(col) + r);
+    if (typeof v === 'string' && v.trim() !== '' && !isNumeric(v)) return v;
+  }
+  return '';
+}
+
+function sourceLabel(sheet, addr) {
+  const p = addrParts(addr);
+  const c = colName(p.col);
+  const left = p.col > 1 ? valueAt(sheet, colName(p.col - 1) + p.row) : '';
+  const rowA = valueAt(sheet, 'A' + p.row);
+  const rowE = valueAt(sheet, 'E' + p.row);
+  const rowH = valueAt(sheet, 'H' + p.row);
+  const rowK = valueAt(sheet, 'K' + p.row);
+  const rowN = valueAt(sheet, 'N' + p.row);
+  const rowQ = valueAt(sheet, 'Q' + p.row);
+
+  if (addr === 'B1') return 'Item Level';
+  if (['F', 'I', 'L', 'O', 'R'].includes(c) && left) return `${displayValue(left)} toggle`;
+  if (rowA && p.col >= 2) {
+    const h = valueAt(sheet, c + '3') || valueAt(sheet, c + '17') || valueAt(sheet, c + '11') || valueAt(sheet, c + '12') || valueAt(sheet, c + '21') || valueAt(sheet, c + '26') || nearestHeader(sheet, p.col, p.row);
+    return h ? `${displayValue(rowA)} from ${displayValue(h)}` : displayValue(rowA);
+  }
+  if (left) return `${displayValue(left)} value`;
+  const rowLabel = rowE || rowH || rowK || rowN || rowQ;
+  if (rowLabel) return displayValue(rowLabel);
+  const h = nearestHeader(sheet, p.col, p.row);
+  return h ? `${displayValue(h)} ${addr}` : addr;
+}
+
+function buildBreakdown(sheet, addr) {
+  const cell = readCell(sheet, addr);
+  const result = displayValue(valueAt(sheet, addr));
+  if (!cell.f) return `${sourceLabel(sheet, addr)} = ${result}\nManual input: this value is typed directly by the user.`;
+
+  const refs = formulaRefs(cell.f);
+  let lines = [];
+  let hidden = 0;
+  for (const ref of refs) {
+    const dep = readCell(sheet, ref);
+    const raw = valueAt(sheet, ref);
+    const isBlank = raw === '' || raw == null;
+    const isZero = asNumber(raw) === 0 && !dep.f && typeof raw !== 'boolean';
+    const isFalse = raw === false;
+    if (isBlank || isZero || isFalse) { hidden++; continue; }
+    let suffix = dep.f ? ' calculated' : '';
+    if (raw === true) suffix = ' enabled';
+    lines.push(`• ${sourceLabel(sheet, ref)} (${ref}) = ${displayValue(raw)}${suffix}`);
+  }
+  if (!lines.length) lines.push('• No active non-zero source values found.');
+  if (hidden) lines.push(`• ${hidden} blank, zero, or disabled source cell(s) hidden.`);
+  return `${sourceLabel(sheet, addr)} (${addr}) = ${result}\n\nUses these source values:\n${lines.join('\n')}`;
+}
+
+function tipFor(addr, cell, label = '') {
+  const sheet = getSheet();
+  const name = label ? `${label} ` : '';
+  if (cell.f) return `${name}${sheet.name}!${addr} is calculated. Click to see contribution breakdown.`;
+  if (typeof cell.v === 'boolean') return `${name}${sheet.name}!${addr} is a toggle. ON counts as 1 and OFF counts as 0 in formulas.`;
+  if (typeof cell.v === 'string' && cell.v.trim() !== '' && !isNumeric(cell.v)) return `${name}${sheet.name}!${addr} is a label.`;
+  return `${name}${sheet.name}!${addr} is a manual input. Enter the same value you would type in Excel.`;
+}
+
+function render() {
+  recalc();
+  const sheet = getSheet();
+  if (sheet.name === 'README') { renderReadme(sheet); return; }
+  const layout = sheetLayouts[sheet.name] || sheetLayouts['DPS Template'];
+  app.innerHTML = `
+    ${renderHeader(sheet)}
+    ${renderTabs()}
+    ${renderToolbar()}
+    <main class="builder-shell">
+      <section class="hero-results">${renderResultRail(sheet, layout)}</section>
+      <section class="builder-grid">
+        <section class="main-stack">
+          ${renderRangeCard(sheet, 'Gear & rating inputs', 'Manual numbers only. No icons here because these are stat rows, not uploaded artwork assets.', layout.gear, 'wide-table', 'matrix')}
+          ${layout.damage ? renderRangeCard(sheet, 'Damage estimator', 'Magnitude is editable. Average hit is calculated from active workbook sources.', layout.damage, 'compact-table', 'matrix') : ''}
+          ${renderRangeCard(sheet, 'Self & team buffs', 'Only this section uses uploaded buff and companion artwork.', layout.buffs, 'compact-table', 'buffs')}
+        </section>
+        <aside class="side-stack">
+          ${renderRangeCard(sheet, 'Class & race', 'Only class and race rows use uploaded class/race artwork.', layout.classRace, 'compact-table', 'classRace')}
+          ${renderRangeCard(sheet, 'Misc values', 'No icons here until matching artwork is intentionally uploaded for these misc rows.', layout.misc, 'compact-table', 'misc')}
+        </aside>
+      </section>
+    </main>`;
+  bind();
+}
+
+function renderHeader(sheet) {
+  return `<header class="topbar"><div><p class="eyebrow">Neverwinter Builder</p><h1>${escapeHtml(sheet.name)}</h1><p class="sub">Manual Excel-style calculator redesigned as a faster web app. Add bonuses, toggle buffs, then check the final outputs.</p></div><div class="status-card"><span>Source</span><strong>${escapeHtml(workbook.source)}</strong><small>${Object.keys(sheet.cells).length} workbook cells loaded</small></div></header>`;
+}
+
+function renderTabs() {
+  return `<nav class="tabs">${workbook.sheets.map((s, i) => `<button class="${i === activeSheetIndex ? 'active' : ''}" data-sheet="${i}" title="Open ${escapeAttr(s.name)}">${escapeHtml(s.name.replace(' Template', ''))}</button>`).join('')}</nav>`;
+}
+
+function renderToolbar() {
+  return `<div class="toolbar"><button id="toggleFormula">${showFormula ? 'Show calculated values' : 'Show breakdown mode'}</button><button id="exportBuild">Export JSON</button><label class="import-label">Import JSON<input id="importBuild" type="file" accept="application/json"></label><span class="hint">${formulaTarget ? escapeHtml(formulaTarget) : 'Performance note: icon observer removed. Icons render only in Buffs and Class/Race sections.'}</span></div>`;
+}
+
+function renderResultRail(sheet, layout) {
+  const b = rangeBounds(layout.results[0], layout.results[1]);
+  let cards = '';
+  for (let r = b.r1 + 1; r <= b.r2; r++) {
+    const name = valueAt(sheet, 'A' + r);
+    const rating = valueAt(sheet, 'B' + r);
+    const final = valueAt(sheet, 'C' + r);
+    if (name !== '' && final !== '') {
+      cards += `<button class="result-card" data-formula="C${r}" title="Click to see contribution breakdown"><span>${escapeHtml(displayValue(name))}</span><strong>${escapeHtml(displayValue(final))}%</strong><small>Rating ${escapeHtml(displayValue(rating))}%</small></button>`;
+    }
+  }
+  return `<section class="result-rail"><div><p class="eyebrow">Final Output</p><h2>Live build results</h2></div><div class="result-card-grid">${cards}</div></section>`;
+}
+
+function renderRangeCard(sheet, title, desc, range, type, mode = 'matrix') {
+  return `<section class="section-card section-${mode}"><div class="section-head"><div><h2>${escapeHtml(title)}</h2><p>${escapeHtml(desc)}</p></div></div><div class="table-scroll"><table class="manual-table ${type}">${renderTableByMode(sheet, range, mode)}</table></div></section>`;
+}
+
+function renderTableByMode(sheet, range, mode) {
+  if (mode === 'buffs') return renderBuffTable(sheet, range);
+  if (mode === 'classRace') return renderClassRaceTable(sheet, range);
+  if (mode === 'misc') return renderMiscTable(sheet, range);
+  return renderRangeTable(sheet, range[0], range[1], mode);
+}
+
+function renderRangeTable(sheet, start, end, mode = 'matrix') {
+  const b = rangeBounds(start, end);
+  let html = '';
+  for (let r = b.r1; r <= b.r2; r++) {
+    html += '<tr>';
+    for (let c = b.c1; c <= b.c2; c++) {
+      const addr = colName(c) + r;
+      const cell = readCell(sheet, addr);
+      const cls = cellClass(cell);
+      const val = cell.f ? (showFormula ? 'View breakdown' : (cell.calc ?? '')) : (cell.v ?? '');
+      const tag = r === b.r1 ? 'th' : 'td';
+      html += `<${tag} class="field ${cls} has-tip" data-tip="${escapeAttr(tipFor(addr, cell))}" data-addr="${addr}">`;
+      html += renderCellControl(addr, cell, val, { allowEmptyInput: mode === 'matrix', allowIcon: false });
+      html += `</${tag}>`;
+    }
+    html += '</tr>';
+  }
+  return html;
+}
+
+function renderBuffTable(sheet, range) {
+  const b = rangeBounds(range[0], range[1]);
+  const c1 = colName(b.c1), c2 = colName(b.c1 + 1), c3 = colName(b.c1 + 3), c4 = colName(b.c1 + 4);
+  let html = `<tr><th>Self buff</th><th>Used?</th><th>Team buff</th><th>Used?</th></tr>`;
+  for (let r = b.r1 + 1; r <= b.r2; r++) {
+    const left = readCell(sheet, c1 + r), leftToggle = readCell(sheet, c2 + r), right = readCell(sheet, c3 + r), rightToggle = readCell(sheet, c4 + r);
+    if (isEmptyCell(left) && isEmptyCell(right)) continue;
+    html += '<tr>';
+    html += renderPairName(sheet, c1 + r, left, 'Self buff', true);
+    html += renderPairControl(c2 + r, leftToggle, 'Self buff toggle');
+    html += renderPairName(sheet, c3 + r, right, 'Team buff', true);
+    html += renderPairControl(c4 + r, rightToggle, 'Team buff toggle');
+    html += '</tr>';
+  }
+  return html;
+}
+
+function renderClassRaceTable(sheet, range) {
+  const b = rangeBounds(range[0], range[1]);
+  const c1 = colName(b.c1), c2 = colName(b.c1 + 1), c3 = colName(b.c1 + 3), c4 = colName(b.c1 + 4);
+  let html = `<tr><th>Class</th><th>Enable</th><th>Race</th><th>Enable</th></tr>`;
+  for (let r = b.r1 + 1; r <= b.r2; r++) {
+    const left = readCell(sheet, c1 + r), leftToggle = readCell(sheet, c2 + r), right = readCell(sheet, c3 + r), rightToggle = readCell(sheet, c4 + r);
+    if (isEmptyCell(left) && isEmptyCell(right)) continue;
+    html += '<tr>';
+    html += renderPairName(sheet, c1 + r, left, 'Class option', true);
+    html += renderPairControl(c2 + r, leftToggle, 'Class toggle');
+    html += renderPairName(sheet, c3 + r, right, 'Race option', true);
+    html += renderPairControl(c4 + r, rightToggle, 'Race toggle');
+    html += '</tr>';
+  }
+  return html;
+}
+
+function renderMiscTable(sheet, range) {
+  const b = rangeBounds(range[0], range[1]);
+  const c1 = colName(b.c1), c2 = colName(b.c2);
+  let html = '<tr><th>Item</th><th>Value / Enable</th></tr>';
+  for (let r = b.r1 + 1; r <= b.r2; r++) {
+    const name = readCell(sheet, c1 + r), val = readCell(sheet, c2 + r);
+    if (isEmptyCell(name) && isEmptyCell(val)) continue;
+    const nameText = displayValue(valueAt(sheet, c1 + r));
+    const valText = displayValue(valueAt(sheet, c2 + r));
+    if ((nameText === 'Stat' && valText === 'Value') || (nameText === 'Misc' && valText === 'Enable')) {
+      html += `<tr><th colspan="2" class="subsection-row">${escapeHtml(nameText)} / ${escapeHtml(valText)}</th></tr>`;
+      continue;
+    }
+    html += '<tr>';
+    html += renderPairName(sheet, c1 + r, name, 'Misc item', false);
+    html += renderPairControl(c2 + r, val, 'Misc value');
+    html += '</tr>';
+  }
+  return html;
+}
+
+function renderPairName(sheet, addr, cell, label, allowIcon) {
+  if (isEmptyCell(cell)) return `<td class="field empty-field"></td>`;
+  const val = valueAt(sheet, addr);
+  return `<td class="field label-field has-tip" data-tip="${escapeAttr(tipFor(addr, cell, label))}"><span class="label-text label-with-icon">${labelText(val, allowIcon)}</span></td>`;
+}
+
+function renderPairControl(addr, cell, label) {
+  if (isEmptyCell(cell)) return `<td class="field empty-field has-tip" data-tip="No input is needed here. This workbook cell is empty and not used by the calculator."><span class="empty-note">—</span></td>`;
+  const val = cell.f ? (showFormula ? 'View breakdown' : (cell.calc ?? '')) : (cell.v ?? '');
+  const cls = cellClass(cell);
+  return `<td class="field ${cls} has-tip" data-tip="${escapeAttr(tipFor(addr, cell, label))}">${renderCellControl(addr, cell, val, { allowEmptyInput: false, allowIcon: false })}</td>`;
+}
+
+function renderCellControl(addr, cell, val, opts = {}) {
+  if (cell.f) return `<button class="formula-button" data-formula="${addr}" title="${escapeAttr(tipFor(addr, cell))}"><span>${escapeHtml(displayValue(val))}</span><small>${showFormula ? 'Breakdown' : addr}</small></button>`;
+  if (typeof cell.v === 'boolean') return `<label class="switch" title="${escapeAttr(tipFor(addr, cell))}"><input type="checkbox" data-edit-check="${addr}" ${cell.v ? 'checked' : ''}><span></span></label>`;
+  if (isEmptyCell(cell) && !opts.allowEmptyInput) return `<span class="empty-note">—</span>`;
+  if (canEdit(cell)) return `<input data-edit="${addr}" title="${escapeAttr(tipFor(addr, cell))}" value="${escapeAttr(displayValue(val))}">`;
+  return `<span class="label-text ${opts.allowIcon ? 'label-with-icon' : ''}">${labelText(displayValue(val), Boolean(opts.allowIcon))}</span>`;
+}
+
+function renderReadme(sheet) {
+  const lines = [];
+  for (let r = 1; r <= sheet.maxRow; r++) {
+    const v = valueAt(sheet, 'A' + r);
+    if (v) lines.push(`<li>${escapeHtml(displayValue(v))}</li>`);
+  }
+  app.innerHTML = `${renderHeader(sheet)}${renderTabs()}<main class="readme-card"><h2>Workbook instructions</h2><ol>${lines.join('')}</ol></main>`;
+  bindTabsOnly();
+}
+
+function bind() {
+  bindTabsOnly();
+  document.querySelectorAll('[data-edit]').forEach((input) => {
+    input.addEventListener('change', () => updateCell(input.dataset.edit, input.value, 'text'));
+    input.addEventListener('keydown', (e) => { if (e.key === 'Enter') input.blur(); });
+  });
+  document.querySelectorAll('[data-edit-check]').forEach((input) => input.addEventListener('change', () => updateCell(input.dataset.editCheck, input.checked, 'checkbox')));
+  document.querySelectorAll('[data-formula]').forEach((btn) => btn.addEventListener('click', () => {
+    formulaTarget = buildBreakdown(getSheet(), btn.dataset.formula);
+    render();
+  }));
+  document.getElementById('toggleFormula').onclick = () => { showFormula = !showFormula; render(); };
+  document.getElementById('exportBuild').onclick = exportJson;
+  document.getElementById('importBuild').onchange = importJson;
+}
+
+function bindTabsOnly() {
+  document.querySelectorAll('[data-sheet]').forEach((btn) => btn.onclick = () => {
+    activeSheetIndex = Number(btn.dataset.sheet);
+    formulaTarget = '';
+    render();
+  });
+}
+
+function exportJson() {
+  const blob = new Blob([JSON.stringify(workbook, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'neverwinter-build.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function importJson(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const imported = JSON.parse(reader.result);
+      if (imported.sheets) {
+        workbook.sheets = imported.sheets;
+        activeSheetIndex = Math.min(activeSheetIndex, workbook.sheets.length - 1);
+        render();
+      } else alert('Invalid workbook JSON');
+    } catch (err) {
+      alert('Could not import JSON');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function escapeHtml(s) { return String(s).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch])); }
+function escapeAttr(s) { return escapeHtml(s).replace(/'/g, '&#39;'); }
+
 render();
