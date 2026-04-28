@@ -1,11 +1,11 @@
 /*
   Runtime icon binder for Neverwinter Character Builder.
 
-  It combines two strategies:
-  1. Exact/explicit paths from window.NW_ASSETS.
-  2. Auto-scanned upload manifest from window.NW_ICON_MANIFEST, generated during build from assets/Icons.
-
-  Result: old and newly uploaded icons are matched to workbook labels by image filename.
+  Goal:
+  - Use every old/new uploaded icon from assets/Icons and its subfolders.
+  - Match icons to workbook labels by exact name, compact name, aliases, and word overlap.
+  - Example: "Pally Crit Aura" can match "Paladin Crtical Strike Aura.png".
+  - Example: "Blue Fire Eye" can match "Bluefire Eye Icon.png".
 */
 (function () {
   const ROOTS = [
@@ -29,24 +29,51 @@
     'assets/icons/mounts/'
   ];
 
-  const EXTENSIONS = ['png', 'webp', 'jpg', 'jpeg', 'PNG', 'WEBP', 'JPG', 'JPEG'];
+  const EXTENSIONS = ['png', 'webp', 'jpg', 'jpeg', 'gif', 'svg', 'PNG', 'WEBP', 'JPG', 'JPEG', 'GIF', 'SVG'];
   const IGNORED_LABELS = new Set(['', 'Stat', 'Value', 'Class', 'Enable', 'Misc', 'Used?', 'Buff']);
+  const GENERIC_WORDS = new Set(['icon', 'icons', 'boon', 'boons', 'aura', 'auras', 'the', 'of']);
   const failedSrc = new Set();
   const loadedSrc = new Set();
 
+  const TOKEN_ALIASES = {
+    pally: 'paladin',
+    pali: 'paladin',
+    pal: 'paladin',
+    crtical: 'critical',
+    critcal: 'critical',
+    crit: 'critical',
+    c: '',
+    str: 'strike',
+    sev: 'severity',
+    pow: 'power',
+    acc: 'accuracy',
+    aware: 'awareness',
+    avoid: 'avoidance',
+    exlier: 'elixir',
+    elixer: 'elixir',
+    potecy: 'potency',
+    bluefire: 'blue fire',
+    wildstrom: 'wild storm',
+    startel: 'sartell',
+    portebelo: 'portobello',
+    driz: 'drizzt'
+  };
+
   function normalizeLabel(value) {
-    return String(value || '')
+    let text = String(value || '')
       .trim()
       .toLowerCase()
       .replace(/&/g, 'and')
       .replace(/\(s\)/g, 's')
-      .replace(/\b(icon|icons|boon|aura icon|boon icon)\b/g, ' ')
-      .replace(/\b(exlier|elixer|elixir)\b/g, 'elixir')
-      .replace(/\b(crtical|critcal)\b/g, 'critical')
-      .replace(/\b(potecy)\b/g, 'potency')
       .replace(/[.#_\-]+/g, ' ')
       .replace(/[^a-z0-9]+/g, ' ')
       .trim();
+
+    Object.entries(TOKEN_ALIASES).forEach(([from, to]) => {
+      text = text.replace(new RegExp(`\\b${from}\\b`, 'g'), to);
+    });
+
+    return text.replace(/\s+/g, ' ').trim();
   }
 
   function titleCase(value) {
@@ -67,6 +94,26 @@
 
   function dedupe(list) {
     return [...new Set(list.filter(Boolean))];
+  }
+
+  function words(value) {
+    return normalizeLabel(value)
+      .split(/\s+/)
+      .map((word) => TOKEN_ALIASES[word] || word)
+      .flatMap((word) => String(word).split(/\s+/))
+      .filter((word) => word && !GENERIC_WORDS.has(word));
+  }
+
+  function wordSet(value) {
+    return new Set(words(value));
+  }
+
+  function intersectionSize(a, b) {
+    let count = 0;
+    a.forEach((item) => {
+      if (b.has(item)) count += 1;
+    });
+    return count;
   }
 
   function filenameBases(label) {
@@ -146,35 +193,67 @@
     return dedupe(sources).map((src) => encodeURI(src));
   }
 
+  function scoreManifestItem(label, item) {
+    const labelNorm = normalizeLabel(label);
+    const labelCompact = compact(label);
+    const itemName = item.name || item.file || item.path || '';
+    const itemNorm = normalizeLabel(item.normalised || itemName);
+    const itemCompact = item.compact || itemNorm.replace(/\s+/g, '');
+
+    const labelWords = wordSet(label);
+    const itemWords = wordSet(itemName);
+    const common = intersectionSize(labelWords, itemWords);
+    const labelWordCount = Math.max(labelWords.size, 1);
+    const itemWordCount = Math.max(itemWords.size, 1);
+
+    let score = 0;
+
+    // Exact and compact name matches should always win.
+    if (itemNorm === labelNorm) score += 200;
+    if (itemCompact === labelCompact) score += 190;
+
+    // Generated base names and known aliases.
+    const wanted = new Set(filenameBases(label).map(normalizeLabel));
+    const wantedCompact = new Set([...wanted].map((value) => value.replace(/\s+/g, '')));
+    if (wanted.has(itemNorm)) score += 170;
+    if (wantedCompact.has(itemCompact)) score += 160;
+
+    // Substring match, useful for names like Bluefire Eye vs Blue Fire Eye.
+    if (itemNorm.includes(labelNorm) || labelNorm.includes(itemNorm)) score += 75;
+    if (itemCompact.includes(labelCompact) || labelCompact.includes(itemCompact)) score += 70;
+
+    // Word-by-word match requested by user.
+    // This is the important part: if image filename words overlap with workbook label words, use it.
+    if (common > 0) {
+      const labelCoverage = common / labelWordCount;
+      const itemCoverage = common / itemWordCount;
+
+      // Strong overlap: all or most label words are present in image filename.
+      if (labelCoverage >= 1) score += 120;
+      else if (labelCoverage >= 0.66) score += 90;
+      else if (labelCoverage >= 0.5 && common >= 2) score += 70;
+      else if (common >= 2) score += 45;
+      else if (labelWordCount === 1 && itemWords.has([...labelWords][0])) score += 65;
+
+      // Prefer shorter filenames when the match is otherwise similar.
+      score += Math.round((labelCoverage + itemCoverage) * 25);
+    }
+
+    // Avoid very weak one-word matches for generic labels.
+    if (common === 1 && labelWordCount > 1 && score < 80) score = 0;
+
+    return score;
+  }
+
   function getManifestMatches(label) {
     const manifest = Array.isArray(window.NW_ICON_MANIFEST) ? window.NW_ICON_MANIFEST : [];
     if (!manifest.length) return [];
 
-    const wanted = new Set(filenameBases(label).map(normalizeLabel));
-    wanted.add(normalizeLabel(label));
-    wanted.add(compact(label));
-
-    const labelNorm = normalizeLabel(label);
-    const labelCompact = compact(label);
-
-    const scored = manifest.map((item) => {
-      const itemNorm = item.normalised || normalizeLabel(item.name || item.file || item.path);
-      const itemCompact = item.compact || itemNorm.replace(/\s+/g, '');
-      let score = 0;
-
-      if (itemNorm === labelNorm) score += 100;
-      if (itemCompact === labelCompact) score += 90;
-      if (wanted.has(itemNorm)) score += 80;
-      if (wanted.has(itemCompact)) score += 75;
-      if (itemNorm.includes(labelNorm) || labelNorm.includes(itemNorm)) score += 35;
-      if (itemCompact.includes(labelCompact) || labelCompact.includes(itemCompact)) score += 30;
-
-      return { item, score };
-    })
+    return manifest
+      .map((item) => ({ item, score: scoreManifestItem(label, item) }))
       .filter((entry) => entry.score > 0)
-      .sort((a, b) => b.score - a.score || a.item.path.localeCompare(b.item.path));
-
-    return scored.map((entry) => entry.item.path);
+      .sort((a, b) => b.score - a.score || a.item.path.localeCompare(b.item.path))
+      .map((entry) => entry.item.path);
   }
 
   function getAssetMap() {
@@ -300,6 +379,10 @@
     failedSrc,
     loadedSrc,
     candidatesFor: (label) => dedupe([...getManifestMatches(label), ...buildGeneratedSources(label)]),
+    scoreFor: (label) => (window.NW_ICON_MANIFEST || [])
+      .map((item) => ({ path: item.path, score: scoreManifestItem(label, item), words: words(item.name || item.file || item.path) }))
+      .filter((entry) => entry.score > 0)
+      .sort((a, b) => b.score - a.score),
     manifest: () => window.NW_ICON_MANIFEST || [],
     bindIcons
   };
