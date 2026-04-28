@@ -25,6 +25,17 @@ But the user-facing UI is grouped into clearer sections:
 - Class and Race Toggles
 - Misc Values
 
+## Asset System
+
+The app uses `src/assets.js` as the central icon map.
+
+Current icon behavior:
+
+- Uploaded buff, aura, food, and companion icons are embedded as WebP data URIs.
+- Class and race icons are mapped through the same asset system.
+- Missing labels fall back to readable initials instead of broken image placeholders.
+- Icon rendering happens through the `labelWithIcon()` and `iconHtml()` helpers in `src/app.js`.
+
 ## Sheets Included
 
 | Sheet | Purpose |
