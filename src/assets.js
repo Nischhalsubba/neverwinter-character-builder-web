@@ -1,11 +1,100 @@
-window.NW_ASSETS={
-  notes:'Optional asset map. Add approved/local image URLs here. The app falls back to generated icon chips when no image exists.',
-  items:{
-    'POW':{icon:'P'},'ACC':{icon:'A'},'CA':{icon:'CA'},'C STR':{icon:'CS'},'C SEV':{icon:'CV'},'FOR':{icon:'F'},'OGH':{icon:'OH'},
-    'DEF':{icon:'D'},'AWARE':{icon:'AW'},'C AVOID':{icon:'AV'},'Damage':{icon:'DMG'},'Magnitude':{icon:'MAG'},
-    'Hot Wings':{icon:'HW'},'Squash Soup':{icon:'SS'},'Sorbet':{icon:'SB'},'Flask':{icon:'FL'},'Wild Storm':{icon:'WS'},
-    'Mystic Aura':{icon:'MA'},'Runic Aura':{icon:'RA'},'Pack #1':{icon:'P1'},'Pack #2':{icon:'P2'},'Avian Aura(s)':{icon:'AA'},
-    'Dragonborn':{icon:'DB'},'Human':{icon:'HU'},'Half Orc':{icon:'HO'},'Aasimar':{icon:'AS'},'Gith':{icon:'GI'},'Wood Elf':{icon:'WE'},'Half Elf':{icon:'HE'},'Dwarf':{icon:'DW'},
-    'Barbarian':{icon:'BB'},'Bard':{icon:'BD'},'Cleric':{icon:'CL'},'Fighter':{icon:'FT'},'Paladin':{icon:'PL'},'Ranger':{icon:'RG'},'Rogue':{icon:'RO'},'Warlock':{icon:'WL'},'Wizard':{icon:'WZ'}
+window.NW_ASSETS = {
+  notes: 'Asset map for Neverwinter Character Builder. Class and race images use NW-Hub public asset URLs. Buff/aura/companion icons are mapped to local assets prepared from the uploaded Icons.zip. Add the uploaded icon files under assets/buffs/ with the filenames used below.',
+  items: {
+    // Core stats
+    'POW': { icon: 'P' },
+    'ACC': { icon: 'A' },
+    'CA': { icon: 'CA' },
+    'C STR': { icon: 'CS' },
+    'C SEV': { icon: 'CV' },
+    'FOR': { icon: 'F' },
+    'OGH': { icon: 'OH' },
+    'DEF': { icon: 'D' },
+    'AWARE': { icon: 'AW' },
+    'C AVOID': { icon: 'AV' },
+    'Damage': { icon: 'DMG' },
+    'Magnitude': { icon: 'MAG' },
+
+    // Classes from NW-Hub
+    'Fighter': { icon: 'FT', src: 'https://nw-hub.com/assets/classes/emblems/fighter.webp' },
+    'Barbarian': { icon: 'BB', src: 'https://nw-hub.com/assets/classes/emblems/barbarian.webp' },
+    'Paladin': { icon: 'PL', src: 'https://nw-hub.com/assets/classes/emblems/paladin.webp' },
+    'Cleric': { icon: 'CL', src: 'https://nw-hub.com/assets/classes/emblems/cleric.webp' },
+    'Wizard': { icon: 'WZ', src: 'https://nw-hub.com/assets/classes/emblems/wizard.webp' },
+    'Warlock': { icon: 'WL', src: 'https://nw-hub.com/assets/classes/emblems/warlock.webp' },
+    'Rogue': { icon: 'RO', src: 'https://nw-hub.com/assets/classes/emblems/rogue.webp' },
+    'Ranger': { icon: 'RG', src: 'https://nw-hub.com/assets/classes/emblems/ranger.webp' },
+    'Bard': { icon: 'BD', src: 'https://nw-hub.com/assets/classes/emblems/bard.webp' },
+
+    // Races from NW-Hub
+    'Dragonborn': { icon: 'DB', src: 'https://nw-hub.com/assets/classes/races/dragonborn.webp' },
+    'Human': { icon: 'HU', src: 'https://nw-hub.com/assets/classes/races/human.webp' },
+    'Half Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
+    'Half-Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
+    'Aasimar': { icon: 'AS', src: 'https://nw-hub.com/assets/classes/races/aasimar.webp' },
+    'Gith': { icon: 'GI', src: 'https://nw-hub.com/assets/classes/races/gith.webp' },
+    'Wood Elf': { icon: 'WE', src: 'https://nw-hub.com/assets/classes/races/wood-elf.webp' },
+    'Half Elf': { icon: 'HE', src: 'https://nw-hub.com/assets/classes/races/half-elf.webp' },
+    'Half-Elf': { icon: 'HE', src: 'https://nw-hub.com/assets/classes/races/half-elf.webp' },
+    'Dwarf': { icon: 'DW', src: 'https://nw-hub.com/assets/classes/races/dwarf.webp' },
+    'Drow': { icon: 'DR', src: 'https://nw-hub.com/assets/classes/races/drow.webp' },
+    'Halfling': { icon: 'HF', src: 'https://nw-hub.com/assets/classes/races/halfling.webp' },
+    'Menzoberranzan Renegade': { icon: 'MR', src: 'https://nw-hub.com/assets/classes/races/menzoberranzan-renegade.webp' },
+    'Metallic Ancestry Dragonborn': { icon: 'MD', src: 'https://nw-hub.com/assets/classes/races/metallic-ancestry-dragonborn.webp' },
+    'Moon Elf': { icon: 'ME', src: 'https://nw-hub.com/assets/classes/races/moon-elf.webp' },
+    'Sun Elf': { icon: 'SE', src: 'https://nw-hub.com/assets/classes/races/sun-elf.webp' },
+    'Tiefling': { icon: 'TF', src: 'https://nw-hub.com/assets/classes/races/tiefling.webp' },
+
+    // Uploaded buff / consumable / aura icons
+    'Hot Wings': { icon: 'HW', src: 'assets/buffs/hot-wings.png' },
+    'Squash Soup': { icon: 'SS' },
+    'Sorbet': { icon: 'SB', src: 'assets/buffs/sorbet.png' },
+    'Watermelon Sorbet': { icon: 'SB', src: 'assets/buffs/sorbet.png' },
+    'Flask': { icon: 'FL', src: 'assets/buffs/flask.png' },
+    'Wild Storm': { icon: 'WS', src: 'assets/buffs/wild-storm.png' },
+    'Forger': { icon: 'FG', src: 'assets/buffs/forger.png' },
+    'Totem': { icon: 'TM', src: 'assets/buffs/totem.png' },
+    'Sunlord': { icon: 'SL', src: 'assets/buffs/sunlord.png' },
+    'Guild Pow': { icon: 'GP', src: 'assets/buffs/guild-power.png' },
+    'Guild Power': { icon: 'GP', src: 'assets/buffs/guild-power.png' },
+    'Guild Acc': { icon: 'GA', src: 'assets/buffs/guild-accuracy.png' },
+    'Guild Accuracy': { icon: 'GA', src: 'assets/buffs/guild-accuracy.png' },
+    'Guild Crit Str': { icon: 'GC' },
+    'Guild OGH': { icon: 'GO' },
+    'Guild Aware': { icon: 'GW' },
+
+    // Uploaded mount aura icons
+    'Mystic Aura': { icon: 'MA', src: 'assets/buffs/mystic-aura.png' },
+    'Runic Aura': { icon: 'RA', src: 'assets/buffs/runic-aura.png' },
+    'Pack #1': { icon: 'P1', src: 'assets/buffs/pack-tactics.png' },
+    'Pack #2': { icon: 'P2', src: 'assets/buffs/pack-tactics.png' },
+    'Pack Tactics': { icon: 'PT', src: 'assets/buffs/pack-tactics.png' },
+    'Avian Aura(s)': { icon: 'AA', src: 'assets/buffs/avian-aura.png' },
+    'Avian Aura': { icon: 'AA', src: 'assets/buffs/avian-aura.png' },
+    'Pally Crit Aura': { icon: 'PC', src: 'assets/buffs/pally-critical-aura.png' },
+    'Pally Def Aura': { icon: 'PD' },
+    'Blue Fire Eye': { icon: 'BE', src: 'assets/buffs/blue-fire-eye.png' },
+
+    // Uploaded companion icons / NW-Hub companion fallbacks
+    'Raptor x4': { icon: 'RP', src: 'assets/buffs/raptor-uploaded.png' },
+    'Raptor': { icon: 'RP', src: 'assets/buffs/raptor-uploaded.png' },
+    'Portobello': { icon: 'PO', src: 'assets/buffs/portobello-uploaded.png' },
+    'Tutor': { icon: 'TU', src: 'assets/buffs/tutor-uploaded.png' },
+    'Drizzt': { icon: 'DZ', src: 'assets/buffs/drizzt-uploaded.png' },
+    'Driz': { icon: 'DZ', src: 'assets/buffs/drizzt-uploaded.png' },
+    'Captain Sartell': { icon: 'CS', src: 'assets/buffs/captain-sartell.png' },
+    'Minsc': { icon: 'MI', src: 'assets/buffs/minsc-uploaded.png' },
+    'Etrien': { icon: 'ET', src: 'https://nw-hub.com/assets/companions/icons/etrien.webp' },
+    'Flapjack': { icon: 'FJ', src: 'https://nw-hub.com/assets/companions/icons/flapjack.webp' },
+
+    // Tank / extra manual buff labels
+    'Fizzy Brew': { icon: 'FB' },
+    'Seed Bread': { icon: 'SB' },
+    'Defense Potion': { icon: 'DP' },
+    'Power Potion': { icon: 'PP' },
+    'Crit Str Potion': { icon: 'CP' },
+    'Steadfast Elixir': { icon: 'SE' },
+    'Chain': { icon: 'CH' },
+    'Other': { icon: 'OT' }
   }
 };
