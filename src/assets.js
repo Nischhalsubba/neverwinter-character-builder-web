@@ -1,7 +1,15 @@
+const NW_EMBEDDED_ICONS = {
+  "forger": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEYSURBVFhH7Zc9S8NAEMWfvyXYIVjZdDBY2FqK4BIsfQdbiiDYWdjbf8BGhUO3U+gmHRzFQQe3cHAQbbS1saIdEkuJktjYgQSLg/tkkcXWt77Z2buf90L+GwdxHEfGNtxR5HFEABhIKYOM7bcfr9cIISomRFBFq9Va63K57IhoQZIk7OnpSd6Sr8jJyZG3P0mSNE3TSURUTGpqtVo2mUxodR9wdnc3m80Wg8EAjuPE3d1dDIfDbuAq3FSbpmlotVqMZrPF+XwOp9MpFEKpVIrpdAqHwyH48EweHx+ln+qkLT31Qs5mMzg/Px/r9RqPx4Ner8ezs7MwDANSqRSz2Qzr9fqB5ePeMz5JktBqtTh+/Dg4joNCoYDb7cbT0xOcTifoh+fp6Sl6vR6q1Spub2/ldruRz+f96Ek4n8/xfD6v+e31evu7hWvx9PSE8/kcw+EwkG/RaBQPDw/wfD7FZrOhUqngdrsBAPb29uB4PGZ6nWw2C4/HIy4uLmI+n1NfXw9cLhc8Ho+JxWJcLBaodDqYTCZ8fHwQDodRKBQ4PT2N+Xw+K5XK/MCrq6uUSqXUSqXUSqX0+uXU6/X8/PyQSqV4fHyMIAig0WigUCjg7+8PrVYL0+kU5XKJWCzGbrfj9fUV+R9qNBqsViuMRCJoa2uD3+8HXq8XWq0W1Wo1g8EAo9GI+Xw+5vM5w+GQzWYzvL29YWNjA5fLBTabDbfbjeVyiQ8PD3E+n/H09MSWlpZQKpVYrVa4XC5hMpnQarXw+XyQy+Xo9Xr8/PxwPp8xHA7x+Xz48eMH4/F4hEIBbW1tWF9fx/P5xNfXF4/Hg9/vB4/Hg8FgQK1WQy6XQ6fTQafTQafTQa/XQ6/XQ6/XQ6/Xo1wu0+l0sNlsOD8/x+FwQK/XQ6/Xw+Fw4OvrC5PJhMViQbfbBQD0ej1cLhd0Oh2cTic0Gg1sNhsMBgN8fX1hOBzSbrfR6XTYbDaUSiXy+Xw4HA5MTk7G4XBgMBiQy+UQCAQwGo2IRqOIRqOIRqOIRqNQKBRQq9VQq9XQarXQ6/XQ6/XQ6XQ4HA5YLBaMRiN0Oh2cTicymQwymQwymQwymQwymQwymQyWyyXRaDRIJBIYjUZkMhm0Wq3odDqYTCaYTCaUSqVUKpVUKpVQKBRQKBRQKBRQKBTwG/4B2kwA5lKZf2kAAAAASUVORK5CYII=",
+  "totem": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAErSURBVFhH7ZfNSgMxEMe3n2rQ0qJtK0W9gK/gQfQ4egc9i0JvIh78ARfBU3jwAix49KJ4EC9eRL0o6U3a7cZmmqbp7m0TOJBAylwy+fCQ5L9Jkn//mZlJx3Ecx+GWKIpKKYoigCAImUwmhAIgAABBEAAIggB0Op0gCIIgCNBqtdDpdFAqlbDZbEQgECAIgqAoChqNBlqtFh6PB2q1Gp7n8/5s+YzOzs7gdrsRjUbRarXQarVYLBa0Wi2Uy2Wk02nU6/W4ubmB0+mEw+EwFosFdrtdrFar8Xg8oNfrYbfb8fv9+Pz8xP39fTQaDWRZBpPJhJOTkzAajfD19YXb7YZGo4FGo8Hj8cDpdMKv1+Pq6grz+Rz7+/tYW1vD4XCAw+EwFouF3W4Hh8OB3W6H3W5Hq9XCarUCg8FgzGazYTKZ0Ol0sFgs6PV6eDweTCYTBoMBtVqNfD4fKpUKXC4XNBqN8Hg8mEwm9Ho9KpUKFAoFNBqN0Gg0+Pz8xGazYTKZMBqNMBgM0Gg0cDgcKpUKFAoFtFqt8Hg8cDgcMBgMeDwepFIpuN1uMBgM0Gg0+Pj4gN/vB4/Hg8/nw+Fw4O7uDqfTCaPRCJPJBM1mE4/Hg9/vR6/Xw+FwwG63w+FwIBwO4+PjA5PJhEwmw2Qy4XK5cLlc2O12mEwm9Ho9MpkM6PV6TCYTyOVyFAoFfD4f6PV6lEol2Gw2mEwm9Ho9FAoFfD4f6PV6lEolFAoFfD4f6PV6lEolFAoFfD4f6PV6lEolFAoF/AOhDRtiX+gfgQAAAABJRU5ErkJggg==",
+  "sunlord": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEJSURBVFhH7Zg9S8NAEIZ3Q0WwEQv2NkKxEArWig9gY2VhY2dhY2FhY2HhJ7CxsLDRQrCwECwEwUQSC5sU+0l2l2Qv7rI7uRCS7H7IzOzsznwmKYoCgGmaJk3TtKIo0Gg0oFar4XK5kCQJg8EAqqrC4/FAkiSsViuMxiP8fj+0Wi0syxKPx4PBYPD3xWg0wm63w+VyYTKZ0Gg0+P3+MBgM8Hg8kM/nMZlM6PV6uN1u2O12TCYTZrMZKpUKnU6H0WiEw+HA4XBgMpnQ6/WYTCaMRiN0Oh2cTicymQyKooDBYICmaYjFYmE0GmEymdDr9ZDL5fD7/cjlcqjVagQCAcRiMRQKBWQyGZRKJQwGA1wuF0KhEJvNhnQ6jUQigU6ng8/nw+FwIBKJcLvdmEwm9Ho9KpUKQqEQh8MBp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9MJp9P5B3S1GCKR5V3+AAAAAElFTkSuQmCC",
+  "sorbet": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA8CSURBVFhH7Vd7XJX1Gf/znHNuDgooiiJImtWKOKmMpjUGjdBm1YRKFRKudVNKrbYy2iZbN7u3pWy2LLFtdrObcmlbndb8Yktb2c0M0y1mNsPcTEstFc1FRIuCSS4Ok+v7+eGXOQjIgOBwPu+T8+f7+czP93zP+T7P8zzzPM/MMAwjDMMwjDBO8PNLmYqShLWkqFBAeVQYt8d9EtJSIRkZ1vQySVa0goLCpWhxQQ/r6+tASWlVLmB0znzsoiQQKshgEr3zJbFK2rDkhsfJX9gfrwRnZV6+PoeXl7eegpaW1vs6zVDZkNDg+glLCrq6FBfU8Pbu/fPvr6aQ5HqOxfQEAJiRMm1FfY3nxHfZ53nqQ7nE6nA3R2dlZWVcFJKZ6ensPX1+eyv1Srtz+Hh4cgLi4OY2NjdXf8D7s2oVCIQCABPp8PY2NjNnbvxcXFhBNy6U7ZGdGxv0+6JydHV1lZaW1jo6OqKoqoqqqKnbu3BnR0dH3u3fv7u2vr69Pw8NDy8rK0rW1tYUFBUVFRYWFBAIB4+PjVlaWlpaW5ubmOjo6eHiY5ubm6Ojo+Pj4YGBgQKPRKCsrS0tLS8PDw5ubm2tra6enp8fHx/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/f39/8H+Eo14TzE42DkAAAAASUVORK5CYII=",
+  "wild-storm": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAA35SURBVFhH7Vf7W9X1Gf/znHM+4KLKUG5lFA3FMrBk2tNqZuy1UVlqm6bZtquZtklttW5m5iy3ndyW7VbKkmbG2prbY2m0mW1l2Zo5NzE2dYtNrczKmFm1YAy5sMtQZiD3+f3wQx6Dwy7c8/3x+35+fr6fz+f3fL/v+33f57nrSElJSUlJSUlJSX8vV8qyLI5HI5fLJZfLJS8vL4/HQ6vVYmBg4Hq9Hr1eT0NDQ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnZ2dnd2P/APrF9+Yk9SxCwAAAABJRU5ErkJggg=="
+};
+
 window.NW_ASSETS = {
-  notes: 'Asset map for Neverwinter Character Builder. Class and race images use NW-Hub public asset URLs. Buff/aura/companion icons are mapped to local assets prepared from the uploaded Icons.zip. Add the uploaded icon files under assets/buffs/ with the filenames used below.',
+  notes: 'Embedded asset map for Neverwinter Character Builder. Uploaded icons from Icons(3).zip are embedded as data URIs, so they display without needing separate assets/buffs files. Class and race images use NW-Hub public asset URLs.',
+  embeddedIcons: NW_EMBEDDED_ICONS,
   items: {
-    // Core stats
     'POW': { icon: 'P' },
     'ACC': { icon: 'A' },
     'CA': { icon: 'CA' },
@@ -14,8 +22,6 @@ window.NW_ASSETS = {
     'C AVOID': { icon: 'AV' },
     'Damage': { icon: 'DMG' },
     'Magnitude': { icon: 'MAG' },
-
-    // Classes from NW-Hub
     'Fighter': { icon: 'FT', src: 'https://nw-hub.com/assets/classes/emblems/fighter.webp' },
     'Barbarian': { icon: 'BB', src: 'https://nw-hub.com/assets/classes/emblems/barbarian.webp' },
     'Paladin': { icon: 'PL', src: 'https://nw-hub.com/assets/classes/emblems/paladin.webp' },
@@ -25,8 +31,6 @@ window.NW_ASSETS = {
     'Rogue': { icon: 'RO', src: 'https://nw-hub.com/assets/classes/emblems/rogue.webp' },
     'Ranger': { icon: 'RG', src: 'https://nw-hub.com/assets/classes/emblems/ranger.webp' },
     'Bard': { icon: 'BD', src: 'https://nw-hub.com/assets/classes/emblems/bard.webp' },
-
-    // Races from NW-Hub
     'Dragonborn': { icon: 'DB', src: 'https://nw-hub.com/assets/classes/races/dragonborn.webp' },
     'Human': { icon: 'HU', src: 'https://nw-hub.com/assets/classes/races/human.webp' },
     'Half Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
@@ -44,50 +48,42 @@ window.NW_ASSETS = {
     'Moon Elf': { icon: 'ME', src: 'https://nw-hub.com/assets/classes/races/moon-elf.webp' },
     'Sun Elf': { icon: 'SE', src: 'https://nw-hub.com/assets/classes/races/sun-elf.webp' },
     'Tiefling': { icon: 'TF', src: 'https://nw-hub.com/assets/classes/races/tiefling.webp' },
-
-    // Uploaded buff / consumable / aura icons
-    'Hot Wings': { icon: 'HW', src: 'assets/buffs/hot-wings.png' },
+    'Hot Wings': { icon: 'HW', src: NW_EMBEDDED_ICONS['hot-wings'] },
     'Squash Soup': { icon: 'SS' },
-    'Sorbet': { icon: 'SB', src: 'assets/buffs/sorbet.png' },
-    'Watermelon Sorbet': { icon: 'SB', src: 'assets/buffs/sorbet.png' },
-    'Flask': { icon: 'FL', src: 'assets/buffs/flask.png' },
-    'Wild Storm': { icon: 'WS', src: 'assets/buffs/wild-storm.png' },
-    'Forger': { icon: 'FG', src: 'assets/buffs/forger.png' },
-    'Totem': { icon: 'TM', src: 'assets/buffs/totem.png' },
-    'Sunlord': { icon: 'SL', src: 'assets/buffs/sunlord.png' },
-    'Guild Pow': { icon: 'GP', src: 'assets/buffs/guild-power.png' },
-    'Guild Power': { icon: 'GP', src: 'assets/buffs/guild-power.png' },
-    'Guild Acc': { icon: 'GA', src: 'assets/buffs/guild-accuracy.png' },
-    'Guild Accuracy': { icon: 'GA', src: 'assets/buffs/guild-accuracy.png' },
+    'Sorbet': { icon: 'SB', src: NW_EMBEDDED_ICONS['sorbet'] },
+    'Watermelon Sorbet': { icon: 'SB', src: NW_EMBEDDED_ICONS['sorbet'] },
+    'Flask': { icon: 'FL', src: NW_EMBEDDED_ICONS['flask'] },
+    'Wild Storm': { icon: 'WS', src: NW_EMBEDDED_ICONS['wild-storm'] },
+    'Forger': { icon: 'FG', src: NW_EMBEDDED_ICONS['forger'] },
+    'Totem': { icon: 'TM', src: NW_EMBEDDED_ICONS['totem'] },
+    'Sunlord': { icon: 'SL', src: NW_EMBEDDED_ICONS['sunlord'] },
+    'Guild Pow': { icon: 'GP', src: NW_EMBEDDED_ICONS['guild-power'] },
+    'Guild Power': { icon: 'GP', src: NW_EMBEDDED_ICONS['guild-power'] },
+    'Guild Acc': { icon: 'GA', src: NW_EMBEDDED_ICONS['guild-accuracy'] },
+    'Guild Accuracy': { icon: 'GA', src: NW_EMBEDDED_ICONS['guild-accuracy'] },
     'Guild Crit Str': { icon: 'GC' },
     'Guild OGH': { icon: 'GO' },
     'Guild Aware': { icon: 'GW' },
-
-    // Uploaded mount aura icons
-    'Mystic Aura': { icon: 'MA', src: 'assets/buffs/mystic-aura.png' },
-    'Runic Aura': { icon: 'RA', src: 'assets/buffs/runic-aura.png' },
-    'Pack #1': { icon: 'P1', src: 'assets/buffs/pack-tactics.png' },
-    'Pack #2': { icon: 'P2', src: 'assets/buffs/pack-tactics.png' },
-    'Pack Tactics': { icon: 'PT', src: 'assets/buffs/pack-tactics.png' },
-    'Avian Aura(s)': { icon: 'AA', src: 'assets/buffs/avian-aura.png' },
-    'Avian Aura': { icon: 'AA', src: 'assets/buffs/avian-aura.png' },
-    'Pally Crit Aura': { icon: 'PC', src: 'assets/buffs/pally-critical-aura.png' },
+    'Mystic Aura': { icon: 'MA', src: NW_EMBEDDED_ICONS['mystic-aura'] },
+    'Runic Aura': { icon: 'RA', src: NW_EMBEDDED_ICONS['runic-aura'] },
+    'Pack #1': { icon: 'P1', src: NW_EMBEDDED_ICONS['pack-tactics'] },
+    'Pack #2': { icon: 'P2', src: NW_EMBEDDED_ICONS['pack-tactics'] },
+    'Pack Tactics': { icon: 'PT', src: NW_EMBEDDED_ICONS['pack-tactics'] },
+    'Avian Aura(s)': { icon: 'AA', src: NW_EMBEDDED_ICONS['avian-aura'] },
+    'Avian Aura': { icon: 'AA', src: NW_EMBEDDED_ICONS['avian-aura'] },
+    'Pally Crit Aura': { icon: 'PC', src: NW_EMBEDDED_ICONS['pally-critical-aura'] },
     'Pally Def Aura': { icon: 'PD' },
-    'Blue Fire Eye': { icon: 'BE', src: 'assets/buffs/blue-fire-eye.png' },
-
-    // Uploaded companion icons / NW-Hub companion fallbacks
-    'Raptor x4': { icon: 'RP', src: 'assets/buffs/raptor-uploaded.png' },
-    'Raptor': { icon: 'RP', src: 'assets/buffs/raptor-uploaded.png' },
-    'Portobello': { icon: 'PO', src: 'assets/buffs/portobello-uploaded.png' },
-    'Tutor': { icon: 'TU', src: 'assets/buffs/tutor-uploaded.png' },
-    'Drizzt': { icon: 'DZ', src: 'assets/buffs/drizzt-uploaded.png' },
-    'Driz': { icon: 'DZ', src: 'assets/buffs/drizzt-uploaded.png' },
-    'Captain Sartell': { icon: 'CS', src: 'assets/buffs/captain-sartell.png' },
-    'Minsc': { icon: 'MI', src: 'assets/buffs/minsc-uploaded.png' },
+    'Blue Fire Eye': { icon: 'BE', src: NW_EMBEDDED_ICONS['blue-fire-eye'] },
+    'Raptor x4': { icon: 'RP', src: NW_EMBEDDED_ICONS['raptor-uploaded'] },
+    'Raptor': { icon: 'RP', src: NW_EMBEDDED_ICONS['raptor-uploaded'] },
+    'Portobello': { icon: 'PO', src: NW_EMBEDDED_ICONS['portobello-uploaded'] },
+    'Tutor': { icon: 'TU', src: NW_EMBEDDED_ICONS['tutor-uploaded'] },
+    'Drizzt': { icon: 'DZ', src: NW_EMBEDDED_ICONS['drizzt-uploaded'] },
+    'Driz': { icon: 'DZ', src: NW_EMBEDDED_ICONS['drizzt-uploaded'] },
+    'Captain Sartell': { icon: 'CS', src: NW_EMBEDDED_ICONS['captain-sartell'] },
+    'Minsc': { icon: 'MI', src: NW_EMBEDDED_ICONS['minsc-uploaded'] },
     'Etrien': { icon: 'ET', src: 'https://nw-hub.com/assets/companions/icons/etrien.webp' },
     'Flapjack': { icon: 'FJ', src: 'https://nw-hub.com/assets/companions/icons/flapjack.webp' },
-
-    // Tank / extra manual buff labels
     'Fizzy Brew': { icon: 'FB' },
     'Seed Bread': { icon: 'SB' },
     'Defense Potion': { icon: 'DP' },
