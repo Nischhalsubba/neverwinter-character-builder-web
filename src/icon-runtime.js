@@ -1,16 +1,11 @@
 /*
   Runtime icon binder for Neverwinter Character Builder.
 
-  Purpose:
-  - Show BOTH old and newly uploaded icons from /assets/Icons/.
-  - Do not require every new icon to be manually added to src/assets.js.
-  - If a workbook label is "Hot Wings", this script automatically tries:
-      assets/Icons/Hot Wings.png
-      assets/Icons/Hot Wings Icon.png
-      assets/Icons/hot-wings.png
-      assets/Icons/hot-wings-icon.png
-      and the same in common subfolders.
-  - Explicit mappings in window.NW_ASSETS still win first.
+  It combines two strategies:
+  1. Exact/explicit paths from window.NW_ASSETS.
+  2. Auto-scanned upload manifest from window.NW_ICON_MANIFEST, generated during build from assets/Icons.
+
+  Result: old and newly uploaded icons are matched to workbook labels by image filename.
 */
 (function () {
   const ROOTS = [
@@ -45,7 +40,11 @@
       .toLowerCase()
       .replace(/&/g, 'and')
       .replace(/\(s\)/g, 's')
-      .replace(/[.#]/g, '')
+      .replace(/\b(icon|icons|boon|aura icon|boon icon)\b/g, ' ')
+      .replace(/\b(exlier|elixer|elixir)\b/g, 'elixir')
+      .replace(/\b(crtical|critcal)\b/g, 'critical')
+      .replace(/\b(potecy)\b/g, 'potency')
+      .replace(/[.#_\-]+/g, ' ')
       .replace(/[^a-z0-9]+/g, ' ')
       .trim();
   }
@@ -96,7 +95,6 @@
       `${cmp}icon`
     ];
 
-    // Known naming corrections from the uploaded files and common typos.
     const aliases = {
       'Sorbet': ['Watermelon Sorbet', 'Watermelon Sorbet Icon'],
       'Wild Storm': ['Wildstrom Exlier', 'Wildstrom Exlier Icon', 'Wildstorm Exlier', 'Wild Storm Elixir', 'Wild Storm Icon'],
@@ -148,6 +146,37 @@
     return dedupe(sources).map((src) => encodeURI(src));
   }
 
+  function getManifestMatches(label) {
+    const manifest = Array.isArray(window.NW_ICON_MANIFEST) ? window.NW_ICON_MANIFEST : [];
+    if (!manifest.length) return [];
+
+    const wanted = new Set(filenameBases(label).map(normalizeLabel));
+    wanted.add(normalizeLabel(label));
+    wanted.add(compact(label));
+
+    const labelNorm = normalizeLabel(label);
+    const labelCompact = compact(label);
+
+    const scored = manifest.map((item) => {
+      const itemNorm = item.normalised || normalizeLabel(item.name || item.file || item.path);
+      const itemCompact = item.compact || itemNorm.replace(/\s+/g, '');
+      let score = 0;
+
+      if (itemNorm === labelNorm) score += 100;
+      if (itemCompact === labelCompact) score += 90;
+      if (wanted.has(itemNorm)) score += 80;
+      if (wanted.has(itemCompact)) score += 75;
+      if (itemNorm.includes(labelNorm) || labelNorm.includes(itemNorm)) score += 35;
+      if (itemCompact.includes(labelCompact) || labelCompact.includes(itemCompact)) score += 30;
+
+      return { item, score };
+    })
+      .filter((entry) => entry.score > 0)
+      .sort((a, b) => b.score - a.score || a.item.path.localeCompare(b.item.path));
+
+    return scored.map((entry) => entry.item.path);
+  }
+
   function getAssetMap() {
     const source = (window.NW_ASSETS && window.NW_ASSETS.items) || {};
     const map = new Map();
@@ -165,12 +194,13 @@
 
     const map = getAssetMap();
     const explicit = map.get(label) || map.get(normalizeLabel(label));
-
+    const manifestMatches = getManifestMatches(label);
     const generated = buildGeneratedSources(label);
+
     if (!explicit) {
       return {
         icon: fallbackText(label),
-        srcCandidates: generated,
+        srcCandidates: dedupe([...manifestMatches, ...generated]),
         generated: true
       };
     }
@@ -178,6 +208,7 @@
     return {
       ...explicit,
       srcCandidates: dedupe([
+        ...manifestMatches,
         ...(Array.isArray(explicit.srcCandidates) ? explicit.srcCandidates : []),
         explicit.src,
         ...generated
@@ -268,7 +299,8 @@
   window.NW_ICON_DEBUG = {
     failedSrc,
     loadedSrc,
-    candidatesFor: buildGeneratedSources,
+    candidatesFor: (label) => dedupe([...getManifestMatches(label), ...buildGeneratedSources(label)]),
+    manifest: () => window.NW_ICON_MANIFEST || [],
     bindIcons
   };
 
