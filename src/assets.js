@@ -1,110 +1,158 @@
 // Neverwinter Character Builder asset map
-// Real uploaded icon files live in /assets/Icons/.
-// Do not embed base64 here. The app should load normal image files so Vercel/GitHub can serve them reliably.
+// Stable icon filenames live in /assets/Icons/.
+// All paths use lowercase kebab-case to avoid case-sensitivity and URL encoding issues on Vercel.
 
 const ICON_ROOT = 'assets/Icons/';
+const CLASS_ROOT = `${ICON_ROOT}classes/`;
+const RACE_ROOT = `${ICON_ROOT}races/`;
+const COMPANION_ROOT = `${ICON_ROOT}companions/`;
+
 const icon = (file, fallback) => ({ icon: fallback, src: ICON_ROOT + file });
-const iconCandidates = (fallback, files) => ({ icon: fallback, src: ICON_ROOT + files[0], srcCandidates: files.map((file) => ICON_ROOT + file) });
+const classIcon = (file, fallback) => ({ icon: fallback, src: CLASS_ROOT + file });
+const raceIcon = (file, fallback) => ({ icon: fallback, src: RACE_ROOT + file });
+const companionIcon = (file, fallback) => ({ icon: fallback, src: COMPANION_ROOT + file });
+const iconCandidates = (fallback, files) => ({
+  icon: fallback,
+  src: files[0],
+  srcCandidates: files
+});
 
 window.NW_ASSETS = {
-  notes: 'Uses real uploaded image files from assets/Icons. Workbook labels are mapped to the exact uploaded filenames, including existing spelling such as Portebelo, Startel, Wildstrom, potecy, and Crtical.',
+  notes: 'Stable asset map using renamed lowercase kebab-case filenames from assets/Icons. Do not use spaces, uppercase, or typo filenames for new icon uploads.',
   items: {
-    // Core stats
+    // Core stats without uploaded artwork yet
     'POW': { icon: 'POW' },
+    'Power': { icon: 'POW' },
     'ACC': { icon: 'ACC' },
+    'Accuracy': { icon: 'ACC' },
     'CA': { icon: 'CA' },
-    'C STR': { icon: 'C S' },
-    'C SEV': { icon: 'C S' },
+    'Combat Advantage': { icon: 'CA' },
+    'C STR': { icon: 'CS' },
+    'Critical Strike': { icon: 'CS' },
+    'C SEV': { icon: 'CV' },
+    'Critical Severity': { icon: 'CV' },
     'FOR': { icon: 'FOR' },
+    'Forte': { icon: 'FOR' },
     'OGH': { icon: 'OGH' },
+    'Outgoing Healing': { icon: 'OGH' },
     'DEF': { icon: 'DEF' },
+    'Defense': { icon: 'DEF' },
     'AWARE': { icon: 'AWA' },
-    'C AVOID': { icon: 'C A' },
-    'Damage': { icon: 'DAM' },
+    'Awareness': { icon: 'AWA' },
+    'C AVOID': { icon: 'CAV' },
+    'Critical Avoidance': { icon: 'CAV' },
+    'Damage': { icon: 'DMG' },
     'Magnitude': { icon: 'MAG' },
 
-    // Classes from NW-Hub asset URLs
-    'Fighter': { icon: 'FI', src: 'https://nw-hub.com/assets/classes/emblems/fighter.webp' },
-    'Barbarian': { icon: 'BA', src: 'https://nw-hub.com/assets/classes/emblems/barbarian.webp' },
-    'Paladin': { icon: 'PA', src: 'https://nw-hub.com/assets/classes/emblems/paladin.webp' },
-    'Cleric': { icon: 'CL', src: 'https://nw-hub.com/assets/classes/emblems/cleric.webp' },
-    'Wizard': { icon: 'WI', src: 'https://nw-hub.com/assets/classes/emblems/wizard.webp' },
-    'Warlock': { icon: 'WA', src: 'https://nw-hub.com/assets/classes/emblems/warlock.webp' },
-    'Rogue': { icon: 'RO', src: 'https://nw-hub.com/assets/classes/emblems/rogue.webp' },
-    'Ranger': { icon: 'RA', src: 'https://nw-hub.com/assets/classes/emblems/ranger.webp' },
-    'Bard': { icon: 'BA', src: 'https://nw-hub.com/assets/classes/emblems/bard.webp' },
+    // Classes
+    'Fighter': classIcon('fighter.webp', 'FI'),
+    'Barbarian': classIcon('barbarian.webp', 'BA'),
+    'Paladin': classIcon('paladin.webp', 'PA'),
+    'Cleric': classIcon('cleric.webp', 'CL'),
+    'Wizard': classIcon('wizard.webp', 'WI'),
+    'Warlock': classIcon('warlock.webp', 'WA'),
+    'Rogue': classIcon('rogue.webp', 'RO'),
+    'Ranger': classIcon('ranger.webp', 'RA'),
+    'Bard': classIcon('bard.webp', 'BD'),
 
-    // Races from NW-Hub asset URLs
-    'Dragonborn': { icon: 'D', src: 'https://nw-hub.com/assets/classes/races/dragonborn.webp' },
-    'Human': { icon: 'H', src: 'https://nw-hub.com/assets/classes/races/human.webp' },
-    'Half Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
-    'Half-Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
-    'Aasimar': { icon: 'A', src: 'https://nw-hub.com/assets/classes/races/aasimar.webp' },
-    'Gith': { icon: 'G', src: 'https://nw-hub.com/assets/classes/races/gith.webp' },
-    'Wood Elf': { icon: 'WE', src: 'https://nw-hub.com/assets/classes/races/wood-elf.webp' },
-    'Half Elf': { icon: 'HE', src: 'https://nw-hub.com/assets/classes/races/half-elf.webp' },
-    'Half-Elf': { icon: 'HE', src: 'https://nw-hub.com/assets/classes/races/half-elf.webp' },
-    'Dwarf': { icon: 'D', src: 'https://nw-hub.com/assets/classes/races/dwarf.webp' },
-    'Drow': { icon: 'D', src: 'https://nw-hub.com/assets/classes/races/drow.webp' },
-    'Halfling': { icon: 'H', src: 'https://nw-hub.com/assets/classes/races/halfling.webp' },
-    'Menzoberranzan Renegade': { icon: 'MR', src: 'https://nw-hub.com/assets/classes/races/menzoberranzan-renegade.webp' },
-    'Metallic Ancestry Dragonborn': { icon: 'MAD', src: 'https://nw-hub.com/assets/classes/races/metallic-ancestry-dragonborn.webp' },
-    'Moon Elf': { icon: 'ME', src: 'https://nw-hub.com/assets/classes/races/moon-elf.webp' },
-    'Sun Elf': { icon: 'SE', src: 'https://nw-hub.com/assets/classes/races/sun-elf.webp' },
-    'Tiefling': { icon: 'T', src: 'https://nw-hub.com/assets/classes/races/tiefling.webp' },
+    // Races
+    'Dragonborn': raceIcon('dragonborn.webp', 'DB'),
+    'Human': raceIcon('human.webp', 'HU'),
+    'Half Orc': raceIcon('half-orc.webp', 'HO'),
+    'Half-Orc': raceIcon('half-orc.webp', 'HO'),
+    'Aasimar': raceIcon('aasimar.webp', 'AS'),
+    'Gith': raceIcon('gith.webp', 'GI'),
+    'Wood Elf': raceIcon('wood-elf.webp', 'WE'),
+    'Half Elf': raceIcon('half-elf.webp', 'HE'),
+    'Half-Elf': raceIcon('half-elf.webp', 'HE'),
+    'Dwarf': raceIcon('dwarf.webp', 'DW'),
+    'Drow': raceIcon('drow.webp', 'DR'),
+    'Halfling': raceIcon('halfling.webp', 'HF'),
+    'Menzoberranzan Renegade': raceIcon('menzoberranzan-renegade.webp', 'MR'),
+    'Metallic Ancestry Dragonborn': raceIcon('metallic-dragonborn.webp', 'MD'),
+    'Metallic Dragonborn': raceIcon('metallic-dragonborn.webp', 'MD'),
+    'Moon Elf': raceIcon('moon-elf.webp', 'ME'),
+    'Sun Elf': raceIcon('sun-elf.webp', 'SE'),
+    'Tiefling': raceIcon('tiefling.webp', 'TF'),
 
-    // Uploaded food / self buff icons
-    'Hot Wings': icon('Hot Wings.png', 'HW'),
-    'Squash Soup': iconCandidates('SS', ['Squash Soup.png', 'Squash Soup Icon.png']),
-    'Sorbet': icon('Watermelon Sorbet Icon.png', 'S'),
-    'Watermelon Sorbet': icon('Watermelon Sorbet Icon.png', 'S'),
-    'Flask': iconCandidates('F', ['Flask of potecy Icon.png', 'Flask of potency Icon.png', 'Flask.png']),
-    'Wild Storm': iconCandidates('WS', ['Wildstrom Exlier.png', 'Wildstorm Exlier.png', 'Wild Storm.png', 'Wild Storm Icon.png']),
-    'Forger': iconCandidates('F', ['Forger Box Icon.png', 'Forger.png', 'Forger Icon.png']),
-    'Totem': iconCandidates('T', ['Spider totem icon.png', 'Spider Totem Icon.png', 'Totem.png', 'Totem Icon.png']),
-    'Sunlord': iconCandidates('S', ['Sunlord exlier Icon.png', 'Sunlord Elixir Icon.png', 'Sunlord.png', 'Sunlord Icon.png']),
+    // Food / self buffs / consumables
+    'Hot Wings': icon('hot-wings.png', 'HW'),
+    'Squash Soup': iconCandidates('SS', [`${ICON_ROOT}squash-soup.png`, `${ICON_ROOT}squash-soup.webp`]),
+    'Sorbet': icon('watermelon-sorbet.png', 'WS'),
+    'Watermelon Sorbet': icon('watermelon-sorbet.png', 'WS'),
+    'Flask': icon('flask-of-potency.png', 'FL'),
+    'Flask of Potency': icon('flask-of-potency.png', 'FL'),
+    'Wild Storm': icon('wild-storm-elixir.png', 'WS'),
+    'Wild Storm Elixir': icon('wild-storm-elixir.png', 'WS'),
+    'Forger': icon('forger-box.png', 'FG'),
+    'Forger Box': icon('forger-box.png', 'FG'),
+    'Totem': icon('spider-totem.png', 'TM'),
+    'Spider Totem': icon('spider-totem.png', 'TM'),
+    'Sunlord': icon('sunlord-elixir.png', 'SL'),
+    'Sunlord Elixir': icon('sunlord-elixir.png', 'SL'),
 
-    // Uploaded guild boon icons
-    'Guild Pow': icon('Guild Power Boon Icon.png', 'GP'),
-    'Guild Power': icon('Guild Power Boon Icon.png', 'GP'),
-    'Guild Acc': icon('Guild Accuracy Boon Icon.png', 'GA'),
-    'Guild Accuracy': icon('Guild Accuracy Boon Icon.png', 'GA'),
-    'Guild Crit Str': iconCandidates('GC', ['Guild Crit Str Boon Icon.png', 'Guild Critical Strike Boon Icon.png', 'Guild Crit Str.png']),
-    'Guild OGH': iconCandidates('GO', ['Guild OGH Boon Icon.png', 'Guild OGH.png']),
-    'Guild Aware': iconCandidates('GW', ['Guild Awareness Boon Icon.png', 'Guild Aware.png']),
+    // Guild boons
+    'Guild Pow': icon('guild-power-boon.png', 'GP'),
+    'Guild Power': icon('guild-power-boon.png', 'GP'),
+    'Guild Power Boon': icon('guild-power-boon.png', 'GP'),
+    'Guild Acc': icon('guild-accuracy-boon.png', 'GA'),
+    'Guild Accuracy': icon('guild-accuracy-boon.png', 'GA'),
+    'Guild Accuracy Boon': icon('guild-accuracy-boon.png', 'GA'),
+    'Guild Crit Str': icon('guild-critical-strike-boon.png', 'GC'),
+    'Guild Critical Strike': icon('guild-critical-strike-boon.png', 'GC'),
+    'Guild Critical Strike Boon': icon('guild-critical-strike-boon.png', 'GC'),
+    'Guild OGH': iconCandidates('GO', [`${ICON_ROOT}guild-ogh-boon.png`, `${ICON_ROOT}guild-outgoing-healing-boon.png`]),
+    'Guild Aware': iconCandidates('GW', [`${ICON_ROOT}guild-awareness-boon.png`, `${ICON_ROOT}guild-aware-boon.png`]),
 
-    // Uploaded aura / team buff icons
-    'Mystic Aura': icon('Mystic Aura.png', 'MA'),
-    'Runic Aura': iconCandidates('RA', ['Runic Aura Icon.png', 'Runic Aura.png']),
-    'Pack #1': iconCandidates('P1', ['Pack Tactics Icon.png', 'Pack Tactics.png']),
-    'Pack #2': iconCandidates('P2', ['Pack Tactics Icon.png', 'Pack Tactics.png']),
-    'Pack Tactics': iconCandidates('PT', ['Pack Tactics Icon.png', 'Pack Tactics.png']),
-    'Avian Aura(s)': icon('Avian Aura.png', 'AA'),
-    'Avian Aura': icon('Avian Aura.png', 'AA'),
-    'Pally Crit Aura': iconCandidates('PC', ['Paladin Crtical Strike Aura.png', 'Paladin Critical Strike Aura.png', 'Pally Crit Aura.png']),
-    'Pally Def Aura': iconCandidates('PD', ['Paladin Defense Aura.png', 'Pally Def Aura.png']),
-    'Blue Fire Eye': iconCandidates('BF', ['Bluefire Eye Icon.png', 'Blue Fire Eye Icon.png', 'Blue Fire Eye.png', 'Bluefire Eye.png']),
+    // Aura / mount / team buffs
+    'Mystic Aura': icon('mystic-aura.png', 'MA'),
+    'Runic Aura': icon('runic-aura.png', 'RA'),
+    'Pack #1': icon('pack-tactics.png', 'P1'),
+    'Pack #2': icon('pack-tactics.png', 'P2'),
+    'Pack Tactics': icon('pack-tactics.png', 'PT'),
+    'Avian Aura(s)': icon('avian-aura.png', 'AA'),
+    'Avian Aura': icon('avian-aura.png', 'AA'),
+    'Pally Crit Aura': icon('paladin-critical-strike-aura.png', 'PC'),
+    'Paladin Critical Strike Aura': icon('paladin-critical-strike-aura.png', 'PC'),
+    'Pally Def Aura': iconCandidates('PD', [`${ICON_ROOT}paladin-defense-aura.png`, `${ICON_ROOT}pally-defense-aura.png`]),
+    'Paladin Defense Aura': iconCandidates('PD', [`${ICON_ROOT}paladin-defense-aura.png`, `${ICON_ROOT}pally-defense-aura.png`]),
+    'Blue Fire Eye': icon('blue-fire-eye.png', 'BE'),
+    'Bluefire Eye': icon('blue-fire-eye.png', 'BE'),
 
-    // Uploaded companion icons
-    'Raptor x4': iconCandidates('RX', ['Raptor Icon.png', 'Raptor.png']),
-    'Raptor': iconCandidates('RX', ['Raptor Icon.png', 'Raptor.png']),
-    'Portobello': iconCandidates('P', ['Portebelo Icon.png', 'Portobello Icon.png', 'Portobello.png']),
-    'Tutor': iconCandidates('T', ['Tutor Icon.png', 'Tutor.png']),
-    'Flapjack': iconCandidates('FJ', ['Flapjack Icon.png', 'Flapjack.png']),
-    'Drizzt': iconCandidates('D', ['Driz Icon.png', 'Drizzt Icon.png', 'Drizzt.png']),
-    'Driz': iconCandidates('D', ['Driz Icon.png', 'Drizzt Icon.png', 'Drizzt.png']),
-    'Etrien': iconCandidates('ET', ['Etrien Icon.png', 'Etrien.png']),
-    'Captain Sartell': iconCandidates('CS', ['Startel Icon.png', 'Sartell Icon.png', 'Captain Sartell Icon.png', 'Captain Sartell.png']),
-    'Minsc': iconCandidates('M', ['minsc Icon.png', 'Minsc Icon.png', 'Minsc.png']),
+    // Companions — prefer main PNGs, then folder WebP versions as fallback
+    'Raptor x4': iconCandidates('RP', [`${ICON_ROOT}raptor.png`, `${COMPANION_ROOT}raptor.webp`]),
+    'Raptor': iconCandidates('RP', [`${ICON_ROOT}raptor.png`, `${COMPANION_ROOT}raptor.webp`]),
+    'Portobello': iconCandidates('PO', [`${ICON_ROOT}portobello.png`, `${COMPANION_ROOT}portobello.webp`]),
+    'Tutor': iconCandidates('TU', [`${ICON_ROOT}tutor.png`, `${COMPANION_ROOT}tutor.webp`]),
+    'Flapjack': iconCandidates('FJ', [`${ICON_ROOT}flapjack.png`, `${COMPANION_ROOT}flapjack.webp`]),
+    'Drizzt': iconCandidates('DZ', [`${ICON_ROOT}drizzt.png`, `${COMPANION_ROOT}drizzt.webp`]),
+    'Driz': iconCandidates('DZ', [`${ICON_ROOT}drizzt.png`, `${COMPANION_ROOT}drizzt.webp`]),
+    'Etrien': iconCandidates('ET', [`${ICON_ROOT}etrien.png`, `${COMPANION_ROOT}etrien.webp`]),
+    'Captain Sartell': icon('captain-sartell.png', 'CS'),
+    'Sartell': icon('captain-sartell.png', 'CS'),
+    'Minsc': iconCandidates('MI', [`${ICON_ROOT}minsc.png`, `${COMPANION_ROOT}minsc.webp`]),
+
+    // Misc values / collars / master boons
+    'Crit Sev Collar': icon('critical-severity-collar.png', 'CSC'),
+    'Critical Sev Collar': icon('critical-severity-collar.png', 'CSC'),
+    'Critical Severity Collar': icon('critical-severity-collar.png', 'CSC'),
+    'Blessed Adv.': icon('blessed-advantage-master-boon.png', 'BA'),
+    'Blessed Advantage': icon('blessed-advantage-master-boon.png', 'BA'),
+    'Blessed Adv': icon('blessed-advantage-master-boon.png', 'BA'),
+    'Max Boons': iconCandidates('MB', [`${ICON_ROOT}max-boons.png`, `${ICON_ROOT}blessed-advantage-master-boon.png`]),
+    'Physical Dmg': iconCandidates('PD', [`${ICON_ROOT}physical-damage.png`, `${ICON_ROOT}physical-dmg.png`]),
+    'Physical Damage': iconCandidates('PD', [`${ICON_ROOT}physical-damage.png`, `${ICON_ROOT}physical-dmg.png`]),
+    'Magical Dmg': iconCandidates('MD', [`${ICON_ROOT}magical-damage.png`, `${ICON_ROOT}magical-dmg.png`]),
+    'Magical Damage': iconCandidates('MD', [`${ICON_ROOT}magical-damage.png`, `${ICON_ROOT}magical-dmg.png`]),
 
     // Extra manual labels
-    'Fizzy Brew': iconCandidates('FB', ['Fizzy Brew.png', 'Fizzy Brew Icon.png']),
-    'Seed Bread': iconCandidates('SB', ['Seed Bread.png', 'Seed Bread Icon.png']),
-    'Defense Potion': iconCandidates('DP', ['Defense Potion.png', 'Defense Potion Icon.png']),
-    'Power Potion': iconCandidates('PP', ['Power Potion.png', 'Power Potion Icon.png']),
-    'Crit Str Potion': iconCandidates('CP', ['Crit Str Potion.png', 'Crit Str Potion Icon.png']),
-    'Steadfast Elixir': iconCandidates('SE', ['Steadfast Elixir.png', 'Steadfast Elixir Icon.png']),
-    'Chain': iconCandidates('CH', ['Chain.png', 'Chain Icon.png']),
+    'Fizzy Brew': iconCandidates('FB', [`${ICON_ROOT}fizzy-brew.png`, `${ICON_ROOT}fizzy-brew.webp`]),
+    'Seed Bread': iconCandidates('SB', [`${ICON_ROOT}seed-bread.png`, `${ICON_ROOT}seed-bread.webp`]),
+    'Defense Potion': iconCandidates('DP', [`${ICON_ROOT}defense-potion.png`, `${ICON_ROOT}defense-potion.webp`]),
+    'Power Potion': iconCandidates('PP', [`${ICON_ROOT}power-potion.png`, `${ICON_ROOT}power-potion.webp`]),
+    'Crit Str Potion': iconCandidates('CP', [`${ICON_ROOT}crit-str-potion.png`, `${ICON_ROOT}critical-strike-potion.png`]),
+    'Steadfast Elixir': iconCandidates('SE', [`${ICON_ROOT}steadfast-elixir.png`, `${ICON_ROOT}steadfast-elixir.webp`]),
+    'Chain': iconCandidates('CH', [`${ICON_ROOT}chain.png`, `${ICON_ROOT}chain.webp`]),
     'Other': { icon: 'OT' }
   }
 };
