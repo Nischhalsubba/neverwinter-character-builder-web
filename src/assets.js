@@ -1,1 +1,110 @@
-window.NW_ASSETS={"notes":"Uploaded Icons(3).zip artwork embedded as tiny WebP data URIs for matching workbook labels.","items":{"POW":{"icon":"POW"},"ACC":{"icon":"ACC"},"CA":{"icon":"CA"},"C STR":{"icon":"C S"},"C SEV":{"icon":"C S"},"FOR":{"icon":"FOR"},"OGH":{"icon":"OGH"},"DEF":{"icon":"DEF"},"AWARE":{"icon":"AWA"},"C AVOID":{"icon":"C A"},"Damage":{"icon":"DAM"},"Magnitude":{"icon":"MAG"},"Fighter":{"icon":"FI","src":"https://nw-hub.com/assets/classes/emblems/fighter.webp"},"Barbarian":{"icon":"BA","src":"https://nw-hub.com/assets/classes/emblems/barbarian.webp"},"Paladin":{"icon":"PA","src":"https://nw-hub.com/assets/classes/emblems/paladin.webp"},"Cleric":{"icon":"CL","src":"https://nw-hub.com/assets/classes/emblems/cleric.webp"},"Wizard":{"icon":"WI","src":"https://nw-hub.com/assets/classes/emblems/wizard.webp"},"Warlock":{"icon":"WA","src":"https://nw-hub.com/assets/classes/emblems/warlock.webp"},"Rogue":{"icon":"RO","src":"https://nw-hub.com/assets/classes/emblems/rogue.webp"},"Ranger":{"icon":"RA","src":"https://nw-hub.com/assets/classes/emblems/ranger.webp"},"Bard":{"icon":"BA","src":"https://nw-hub.com/assets/classes/emblems/bard.webp"},"Dragonborn":{"icon":"D","src":"https://nw-hub.com/assets/classes/races/dragonborn.webp"},"Human":{"icon":"H","src":"https://nw-hub.com/assets/classes/races/human.webp"},"Half Orc":{"icon":"HO","src":"https://nw-hub.com/assets/classes/races/half-orc.webp"},"Half-Orc":{"icon":"HO","src":"https://nw-hub.com/assets/classes/races/half-orc.webp"},"Aasimar":{"icon":"A","src":"https://nw-hub.com/assets/classes/races/aasimar.webp"},"Gith":{"icon":"G","src":"https://nw-hub.com/assets/classes/races/gith.webp"},"Wood Elf":{"icon":"WE","src":"https://nw-hub.com/assets/classes/races/wood-elf.webp"},"Half Elf":{"icon":"HE","src":"https://nw-hub.com/assets/classes/races/half-elf.webp"},"Half-Elf":{"icon":"HE","src":"https://nw-hub.com/assets/classes/races/half-elf.webp"},"Dwarf":{"icon":"D","src":"https://nw-hub.com/assets/classes/races/dwarf.webp"},"Drow":{"icon":"D","src":"https://nw-hub.com/assets/classes/races/drow.webp"},"Halfling":{"icon":"H","src":"https://nw-hub.com/assets/classes/races/halfling.webp"},"Menzoberranzan Renegade":{"icon":"MR","src":"https://nw-hub.com/assets/classes/races/menzoberranzan-renegade.webp"},"Metallic Ancestry Dragonborn":{"icon":"MAD","src":"https://nw-hub.com/assets/classes/races/metallic-ancestry-dragonborn.webp"},"Moon Elf":{"icon":"ME","src":"https://nw-hub.com/assets/classes/races/moon-elf.webp"},"Sun Elf":{"icon":"SE","src":"https://nw-hub.com/assets/classes/races/sun-elf.webp"},"Tiefling":{"icon":"T","src":"https://nw-hub.com/assets/classes/races/tiefling.webp"},"Hot Wings":{"icon":"HW","src":"data:image/webp;base64,UklGRgQCAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSBAAAAABDyCqoR0Nt/8gIiIiIgBWUDggzgAAADAFAJ0BKhgAGAAPtWiJaKKiIgKgAP77CZtO91UX0aOs6brptG3pNy2+OjWjlxAFIH1Pj5zXyWfyqC7mIEH62G7grQ/gylUxQ5fZXg7XRFfyXF+wrnQu0aPJqZCRkAAAA=="},"Sorbet":{"icon":"S","src":"data:image/webp;base64,UklGRqIBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CQbRHIliQi0+gSVlA4IG4AAADwAwCdASoYABgAD7VoiWiioiICoAD+9Os70+QA/FaU5NE83fQEGonL3wUtczU5f3NijGYEiWvT4qcMPV6bCKs3QTgpLDPvV47lff4T1eTBfn16wg+LL45nUxySDZdEePQNGACXKAuD5OumUed3uaYSVzV9+SdhZhBYRMDvERae3qegOPj7/wAA"},"Watermelon Sorbet":{"icon":"S","src":"data:image/webp;base64,UklGRqIBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CQbRHIliQi0+gSVlA4IG4AAADwAwCdASoYABgAD7VoiWiioiICoAD+9Os70+QA/FaU5NE83fQEGonL3wUtczU5f3NijGYEiWvT4qcMPV6bCKs3QTgpLDPvV47lff4T1eTBfn16wg+LL45nUxySDZdEePQNGACXKAuD5OumUed3uaYSVzV9+SdhZhBYRMDvERae3qegOPj7/wAA"},"Flask":{"icon":"F","src":"data:image/webp;base64,UklGRsIBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CmbRHIviYS2xsNVlA4II4AAABwBACdASoYABgAD7VoiWiioiICoAD++fe8GYcK+ui6SX8mnntjPONnSzjMO7A3qeqrJWOJMjzftD+Yxcj2/qN1wAlTdyLnXrhc27N1eu4Ex4Xtdzkf9CSD/OKdTS35cf1O9FzhzxzRpueyjo+pWpXYDDwXKAt8gNZvmDaTxAVfQlxkkdVM+/xtVk/1gYlQ4MeaAAAA=="},"Wild Storm":{"icon":"WS","src":"data:image/webp;base64,UklGRqIBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABEyAQ/p9WZdkRSdI0VlA4IG4AAADwAwCdASoYABgAD7VoiWiioiICoAD+eqHfJG74n4fX9jg17f1KwTSA+UaYxTxiCBO35tovxNPL8CaVnpMvznZp+Wo3CDAPy4H6bS14CDqQs8QSWlmVEXeUM65kf8nxNd9DWRtbD79C7gmC+727tnVnkKE7xFvBZdWhF5AAA"},"Forger":{"icon":"F","src":"data:image/webp;base64,UklGRl4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABT6CQbZEAAlNFXXIHVlA4ICoBAABwBACdASoYABgAD7VoiWiioiICoAD+97gkxc0JeKMqiB0iGbgHXb/GsytgvdXHHds5z5G/2onRN9foDw3ZRdkhQFIYtf6btxabtc88WX0FzI1ohOcP5vMrsrRJLzICZWHORXbPg70F0RhtQF4vUbW8us+qmtkhJYTrpMSxey2eTebKXSAu3BxPwFYAEHkLYjUZfUv7rkVTO+BwF9W2M7maVgAa/AgAD+VGQjKuHYrhDP9SOYmcx/GDQQzIwPG2j13Vn2XRUlPFFAY5LkAAAA"},"Totem":{"icon":"T","src":"data:image/webp;base64,UklGRpYBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA8AAAABkCQg3yA+I9kiG1L4fwBWUDggYAEAAFAGAJ0BKhgAGAAPtWiJaKKiIgKgAP775D0nqJWf6m+7LEKvWtKElo7SNylY1WhfpCHdDmrhaLXI2sx8UKX/bWCP6xcy6/K8O5wdiVnv42uJrvT62myVd/E9hYB16yrMEhlagOGkKzcgNoz/01MxS8/47iDtuUd7nnXev3hSkoK5vJXe20t4yCYLvGKIUWGRKQAAe28AB=="},"Sunlord":{"icon":"S","src":"data:image/webp;base64,UklGRogBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CQbRHIpiQi0/gKVlA4IFQBAACwBACdASoYABgAD7VoiWiioiICoAD+9ppqt09iPs/4xEtvdnWHr8n+zkmE5nUcFOmjTT0JciWQDYTn0U6lEmDxbk3sZymA4uquXsvtO5VIFWKgqeyQSWuVxO4wdZQfSPZkRt8R83+KP77Hfefyj5Ac68hEsMvuoDgXuN74Op4eAzgej0vaKxd4O/8jsYhaTGuHi2vfbh5jafmQ84b8CaaZTz7yTw/+mYNXQV8iUUmA="},"Guild Pow":{"icon":"GP","src":"data:image/webp;base64,UklGRrYBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABYBiq3tL+PyIiIqpwVlA4IIIBAADQBACdASoYABgAD7VoiWiioiICoAD+9/xwBRuqO35vNQE0xQ6+U9tWNA6oNsFwC4cbHs5eeuGwWuwtWWBID7XHaUBFUetUtYgyEDk4cWDow8IBnM1kpve0u2QxkhDZR6lc4fdiynpL6mp9BmHezpoEK++YbtLVgLMhT1NPDXTa4ItbkhMoE/Cj1okvcKaLki4x0WfmQYnpJWG5Q6gxz5S+ovHPcbY+p1mnQqbmE7AS36HtcHv6S1neID6s19WXLHlvKjR/7vwAA"},"Guild Power":{"icon":"GP","src":"data:image/webp;base64,UklGRrYBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABYBiq3tL+PyIiIqpwVlA4IIIBAADQBACdASoYABgAD7VoiWiioiICoAD+9/xwBRuqO35vNQE0xQ6+U9tWNA6oNsFwC4cbHs5eeuGwWuwtWWBID7XHaUBFUetUtYgyEDk4cWDow8IBnM1kpve0u2QxkhDZR6lc4fdiynpL6mp9BmHezpoEK++YbtLVgLMhT1NPDXTa4ItbkhMoE/Cj1okvcKaLki4x0WfmQYnpJWG5Q6gxz5S+ovHPcbY+p1mnQqbmE7AS36HtcHv6S1neID6s19WXLHlvKjR/7vwAA"},"Guild Acc":{"icon":"GA","src":"data:image/webp;base64,UklGRiwBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABPxC63tL+/8cIGRCIVlA4IPgAAADQAwCdASoYABgAD7VoiWiioiICoAD+94E5N8TBynxPS9MZEX/5299AnDgAfFK3bBgIHn0vFoFuJcsuuwPP5zWCGJOgnGDOyKd77i7NvJFXj9QNmLQDYEblyQU+C5vGmURWUFzQfzRQEtYLg1UP8wyunRMLwhX1Zqku7SiOruoPng7zuxNyOAkEn8RTN4Q6+e9Wte/n8pT42O0jQA="},"Guild Accuracy":{"icon":"GA","src":"data:image/webp;base64,UklGRiwBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABPxC63tL+/8cIGRCIVlA4IPgAAADQAwCdASoYABgAD7VoiWiioiICoAD+94E5N8TBynxPS9MZEX/5299AnDgAfFK3bBgIHn0vFoFuJcsuuwPP5zWCGJOgnGDOyKd77i7NvJFXj9QNmLQDYEblyQU+C5vGmURWUFzQfzRQEtYLg1UP8wyunRMLwhX1Zqku7SiOruoPng7zuxNyOAkEn8RTN4Q6+e9Wte/n8pT42O0jQA="},"Mystic Aura":{"icon":"MA","src":"data:image/webp;base64,UklGRjgBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABEBIQ/p9UZSkSOVAHVlA4IAQBAADwAwCdASoYABgAD7VoiWiioiICoAD+9qv/5dJcOV41t24bM1PCgKzFyqGtK//25xAJ6nkL6Zev0zTIWc5OIM4+do3h5j5AkrKLsA+Qyrl5iHZ0h9qqLjc+5RIIWQI3UeiU1/P9KDna63HD+x6V+gqC+RinVLK5GEZH45PKWMn2ey0zUNFrSE3gPYZpUKqs76O22Wa6oOyDQwfQuO0QIr6htlg+/bNsGUEID8M2QaTdAA=="},"Runic Aura":{"icon":"RA","src":"data:image/webp;base64,UklGRtwAAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABUCBq3tJ+/8cIbGMqVlA4IKgAAADwAwCdASoYABgAD7VoiWiioiICoAD++ShCDWca2CC6lF8PM3atEX9QGvg0kAS1ICfQHX+1ZoPWj36ckXNQ3Nd30CBXOV47vE+b8vJLsMCNjhjMUBTFpKoFwBDaj86a0qUqskPFGDN6y8ZH1yAAFhj4AAA=="},"Pack #1":{"icon":"P1","src":"data:image/webp;base64,UklGRr4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABVCBqY9prp0Iv2KsaVlA4IIoBAABQBACdASoYABgAD7VoiWiioiICoAD+9xwn/7cgI+A0uOuHnpKyH2EhqYd+GP1YvhceuyB0RpwBivxkkwpGX62hUJ1wp74Dc02vGcr50l7d7jbeppCwC9gPmEAjOFxRK2lP8JwD08BzwLQoIX2iyd+K1jq5FXkvGFdWq1enI6DXMikro8L61IVl+n8Ko3oU4d33RSL9HbndZPsUg9oof4ERFw/WBKQAVzI27HvAzTY4BGRrI5hbMaIc4Ldz9pfSQWU+s/W6KKtmPC1cpRN0AA=="},"Pack #2":{"icon":"P2","src":"data:image/webp;base64,UklGRr4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABVCBqY9prp0Iv2KsaVlA4IIoBAABQBACdASoYABgAD7VoiWiioiICoAD+9xwn/7cgI+A0uOuHnpKyH2EhqYd+GP1YvhceuyB0RpwBivxkkwpGX62hUJ1wp74Dc02vGcr50l7d7jbeppCwC9gPmEAjOFxRK2lP8JwD08BzwLQoIX2iyd+K1jq5FXkvGFdWq1enI6DXMikro8L61IVl+n8Ko3oU4d33RSL9HbndZPsUg9oof4ERFw/WBKQAVzI27HvAzTY4BGRrI5hbMaIc4Ldz9pfSQWU+s/W6KKtmPC1cpRN0AA=="},"Pack Tactics":{"icon":"PT","src":"data:image/webp;base64,UklGRr4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABVCBqY9prp0Iv2KsaVlA4IIoBAABQBACdASoYABgAD7VoiWiioiICoAD+9xwn/7cgI+A0uOuHnpKyH2EhqYd+GP1YvhceuyB0RpwBivxkkwpGX62hUJ1wp74Dc02vGcr50l7d7jbeppCwC9gPmEAjOFxRK2lP8JwD08BzwLQoIX2iyd+K1jq5FXkvGFdWq1enI6DXMikro8L61IVl+n8Ko3oU4d33RSL9HbndZPsUg9oof4ERFw/WBKQAVzI27HvAzTY4BGRrI5hbMaIc4Ldz9pfSQWU+s/W6KKtmPC1cpRN0AA=="},"Avian Aura(s)":{"icon":"AA","src":"data:image/webp;base64,UklGRq4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABEBIQ/p9WaDGS5h4IVlA4IHoBAACwAwCdASoYABgAD7VoiWiioiICoAD+9/XfTWKxfc3482zRTtz61m4dB/fhCcldrza5nJEw2IYFO7XEkc3+izFgpTSqZblwm5qMnfLKLebAHxuOQseG5Snj2V2zMV2ZdVCUeZAJRfW6eCFUUQzn6wxtgfB1YuOMGeXjhVapCqlvsE0md2xc1VcVgSXD+xq4rwQpLDpeMQ8X3v6f2izQDjctceqOs5RG1YeEyfXulN93tiZ2jn8AAPKlHAAAA"},"Avian Aura":{"icon":"AA","src":"data:image/webp;base64,UklGRq4BAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABEBIQ/p9WaDGS5h4IVlA4IHoBAACwAwCdASoYABgAD7VoiWiioiICoAD+9/XfTWKxfc3482zRTtz61m4dB/fhCcldrza5nJEw2IYFO7XEkc3+izFgpTSqZblwm5qMnfLKLebAHxuOQseG5Snj2V2zMV2ZdVCUeZAJRfW6eCFUUQzn6wxtgfB1YuOMGeXjhVapCqlvsE0md2xc1VcVgSXD+xq4rwQpLDpeMQ8X3v6f2izQDjctceqOs5RG1YeEyfXulN93tiZ2jn8AAPKlHAAAA"},"Pally Crit Aura":{"icon":"PC","src":"data:image/webp;base64,UklGRtgBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA8AAAABwF6Njd3v8Tgwfev/+wkAVlA4IIQBAACQBACdASoYABgAD7VoiWiioiICoAD+90/oDqvzPzRvuTbq9J+PRPbruwJnYF7WWuB/ZhnhXxaE0feYt+hdZS/DQysBKo7qz1656YqINgAX+mI4VDFVGcoRLkHa5ucvXfbx4+V2lWOEXL51vn/7ocNhTpOVPqGF0F2ruWTBgtbW0jEjvfzMB4arjOVvSX8Efpd+YwM1OsxhfV3GBy6g0YvnzmJOrbyjxg1MT5nDgAAAA=="},"Blue Fire Eye":{"icon":"BF","src":"data:image/webp;base64,UklGRjQBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CobZmYiNDq19QKVlA4IAABAADwAwCdASoYABgAD7VoiWiioiICoAD+91iV5qGTsTSey8q+ZTE98rR0zIpyOwDsKNuD65SbDzBpPKh8y2Q1eGbXStx6iPu3VLFZm5lS+aSOsUVdqSJowZrKx8O6E51l/MGe5ivao3KmcBXKWwVTlm6EfdDwN55wyNFoHDz99sA="},"Raptor x4":{"icon":"RX","src":"data:image/webp;base64,UklGRuwAAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA8AAAABYBhq5rkAvmCQiBSIwABWUDgguAAAAPADAJ0BKhgAGAAPtWiJaKKiIgKgAP77DWgkmUxDY2ebAnw/OtZgctPGVgjAvcQyjVWEACDEGUCSW5+6itDuKFxkXCqxfLWVNHgqQCaDws0GY46LW6LThcmVQcnzX/idwHGN7HIm/COirVR+pUlAJC2td8kwAAA=="},"Raptor":{"icon":"RX","src":"data:image/webp;base64,UklGRuwAAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA8AAAABYBhq5rkAvmCQiBSIwABWUDgguAAAAPADAJ0BKhgAGAAPtWiJaKKiIgKgAP77DWgkmUxDY2ebAnw/OtZgctPGVgjAvcQyjVWEACDEGUCSW5+6itDuKFxkXCqxfLWVNHgqQCaDws0GY46LW6LThcmVQcnzX/idwHGN7HIm/COirVR+pUlAJC2td8kwAAA=="},"Portobello":{"icon":"P","src":"data:image/webp;base64,UklGRgABAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CobZmYitBGB9gAVlA4IMwAAABwAwCdASoYABgAD7VoiWiioiICoAD+90kb0UjgoL7mdZYhECeS5QK4k/srfB5l/QzCK3e5Wl5CwbNG+eRHbEdmydiIcFzYJcvNCFUm4qnYuUqqW83D37Enkp9eA9CFH9euu7naDZH38wX97EbZOThsLMLtrtyl3OHiWq+CRmBEys9AeJWAAAA"},"Tutor":{"icon":"T","src":"data:image/webp;base64,UklGRhwBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABN6CQbRMIvmYSL9UGVlA4IOgAAAAQBACdASoYABgAD7VoiWiioiICoAD+9mVCnlflf1m/YmktVLy25vnd3hdqz39DbaH6JHeZ1sUHOgn+eO7TNIP5iWQG2Uvd7asH4tZIuZ7LyJA1VhG6ZZTy4L9Hmxod+YnLiYEUMHx8cPILzVlF/Do2Aw1MM0Kk1JWigB+Eudc/6/rcfksjGOO/V2Ujr4a6um/rxA/nQSAc/XDaewy8C2t0rxPrWoyu5XRYZimAAA"},"Drizzt":{"icon":"D","src":"data:image/webp;base64,UklGRhwBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA8AAAABYBiq7rnbv+b2UiUkqIuAAABWUDgg5gAAADAFAJ0BKhgAGAAPtWiJaKKiIgKgAP77S8cznku4TRt61d46T2DJVniQU10k/4zJGI73VoGk0hETPUpaI46pf1Oqm/Y7n4P1YC7iwZ90hb1gi/Bt3B+UAjcz1HaSxyHrkXlvql7yJbaO507+oa3y5+KNNxDbf2G/W9fp8AhXrJ8HN+QpCifgbyPjCBYGlff9lm7Uncsz76uTruYA"},"Driz":{"icon":"D","src":"data:image/webp;base64,UklGRhwBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA8AAAABYBiq7rnbv+b2UiUkqIuAAABWUDgg5gAAADAFAJ0BKhgAGAAPtWiJaKKiIgKgAP77S8cznku4TRt61d46T2DJVniQU10k/4zJGI73VoGk0hETPUpaI46pf1Oqm/Y7n4P1YC7iwZ90hb1gi/Bt3B+UAjcz1HaSxyHrkXlvql7yJbaO507+oa3y5+KNNxDbf2G/W9fp8AhXrJ8HN+QpCifgbyPjCBYGlff9lm7Uncsz76uTruYA"},"Captain Sartell":{"icon":"CS","src":"data:image/webp;base64,UklGRrAAAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABYBiqXfL+/4VWIUoiVlA4IHwAAADQAwCdASoYABgAD7VoiWiioiICoAD+90xKnBnDLoR+fx0EC8Jz/H0GRByJ1FgHuynsMyn/rlfX+JdSi/FQYbc3hXYz+9KUv8rzOJv9llKyWXQ8pfH+cDKx0rcWrGzx1BX7+PFFGokx4wpVq+34x1i/wPBw2Ua0Og8FZbAAAA"},"Minsc":{"icon":"M","src":"data:image/webp;base64,UklGRhQBAABXRUJQVlA4WAoAAAAQAAAAFwAAFwAAQUxQSA4AAAABEBIQ/p9WZSkikuwOZFZQOCDgAAAAkAUAnQEqGAAYAD7tbq9SqaYkIqgIATAdiWwAnR/AQ4G1SGwQ3kbG/tzk1P3CMbPkVLssWAAA/tDLYek0Dt3CXbKfBnYTIXDyylJhvAOaDSJsjUCo3EFLFabWsranrh7NrHntAO01BcwZ2ysYFIhige367NTj2e07G0JFlFhkGyptfqDamxYMk87f2GrQocmKXH+WK2sPB7HjMsQsG4a+HqkztZMq42vvwQUBuxBCmD8RPSANYQWSEbGasXeXicysGwCP7aUNc3qS8gvUFXY/EMTL6p5zhXRkr/YQ2XpQAAA="},"Squash Soup":{"icon":"SS"},"Guild Crit Str":{"icon":"GC"},"Guild OGH":{"icon":"GO"},"Guild Aware":{"icon":"GW"},"Pally Def Aura":{"icon":"PD"},"Etrien":{"icon":"ET"},"Flapjack":{"icon":"FJ"},"Fizzy Brew":{"icon":"FB"},"Seed Bread":{"icon":"SB"},"Defense Potion":{"icon":"DP"},"Power Potion":{"icon":"PP"},"Crit Str Potion":{"icon":"CP"},"Steadfast Elixir":{"icon":"SE"},"Chain":{"icon":"CH"},"Other":{"icon":"OT"}}};
+// Neverwinter Character Builder asset map
+// Real uploaded icon files live in /assets/Icons/.
+// Do not embed base64 here. The app should load normal image files so Vercel/GitHub can serve them reliably.
+
+const ICON_ROOT = 'assets/Icons/';
+const icon = (file, fallback) => ({ icon: fallback, src: ICON_ROOT + file });
+const iconCandidates = (fallback, files) => ({ icon: fallback, src: ICON_ROOT + files[0], srcCandidates: files.map((file) => ICON_ROOT + file) });
+
+window.NW_ASSETS = {
+  notes: 'Uses real uploaded image files from assets/Icons. Workbook labels are mapped to the exact uploaded filenames, including existing spelling such as Portebelo, Startel, Wildstrom, potecy, and Crtical.',
+  items: {
+    // Core stats
+    'POW': { icon: 'POW' },
+    'ACC': { icon: 'ACC' },
+    'CA': { icon: 'CA' },
+    'C STR': { icon: 'C S' },
+    'C SEV': { icon: 'C S' },
+    'FOR': { icon: 'FOR' },
+    'OGH': { icon: 'OGH' },
+    'DEF': { icon: 'DEF' },
+    'AWARE': { icon: 'AWA' },
+    'C AVOID': { icon: 'C A' },
+    'Damage': { icon: 'DAM' },
+    'Magnitude': { icon: 'MAG' },
+
+    // Classes from NW-Hub asset URLs
+    'Fighter': { icon: 'FI', src: 'https://nw-hub.com/assets/classes/emblems/fighter.webp' },
+    'Barbarian': { icon: 'BA', src: 'https://nw-hub.com/assets/classes/emblems/barbarian.webp' },
+    'Paladin': { icon: 'PA', src: 'https://nw-hub.com/assets/classes/emblems/paladin.webp' },
+    'Cleric': { icon: 'CL', src: 'https://nw-hub.com/assets/classes/emblems/cleric.webp' },
+    'Wizard': { icon: 'WI', src: 'https://nw-hub.com/assets/classes/emblems/wizard.webp' },
+    'Warlock': { icon: 'WA', src: 'https://nw-hub.com/assets/classes/emblems/warlock.webp' },
+    'Rogue': { icon: 'RO', src: 'https://nw-hub.com/assets/classes/emblems/rogue.webp' },
+    'Ranger': { icon: 'RA', src: 'https://nw-hub.com/assets/classes/emblems/ranger.webp' },
+    'Bard': { icon: 'BA', src: 'https://nw-hub.com/assets/classes/emblems/bard.webp' },
+
+    // Races from NW-Hub asset URLs
+    'Dragonborn': { icon: 'D', src: 'https://nw-hub.com/assets/classes/races/dragonborn.webp' },
+    'Human': { icon: 'H', src: 'https://nw-hub.com/assets/classes/races/human.webp' },
+    'Half Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
+    'Half-Orc': { icon: 'HO', src: 'https://nw-hub.com/assets/classes/races/half-orc.webp' },
+    'Aasimar': { icon: 'A', src: 'https://nw-hub.com/assets/classes/races/aasimar.webp' },
+    'Gith': { icon: 'G', src: 'https://nw-hub.com/assets/classes/races/gith.webp' },
+    'Wood Elf': { icon: 'WE', src: 'https://nw-hub.com/assets/classes/races/wood-elf.webp' },
+    'Half Elf': { icon: 'HE', src: 'https://nw-hub.com/assets/classes/races/half-elf.webp' },
+    'Half-Elf': { icon: 'HE', src: 'https://nw-hub.com/assets/classes/races/half-elf.webp' },
+    'Dwarf': { icon: 'D', src: 'https://nw-hub.com/assets/classes/races/dwarf.webp' },
+    'Drow': { icon: 'D', src: 'https://nw-hub.com/assets/classes/races/drow.webp' },
+    'Halfling': { icon: 'H', src: 'https://nw-hub.com/assets/classes/races/halfling.webp' },
+    'Menzoberranzan Renegade': { icon: 'MR', src: 'https://nw-hub.com/assets/classes/races/menzoberranzan-renegade.webp' },
+    'Metallic Ancestry Dragonborn': { icon: 'MAD', src: 'https://nw-hub.com/assets/classes/races/metallic-ancestry-dragonborn.webp' },
+    'Moon Elf': { icon: 'ME', src: 'https://nw-hub.com/assets/classes/races/moon-elf.webp' },
+    'Sun Elf': { icon: 'SE', src: 'https://nw-hub.com/assets/classes/races/sun-elf.webp' },
+    'Tiefling': { icon: 'T', src: 'https://nw-hub.com/assets/classes/races/tiefling.webp' },
+
+    // Uploaded food / self buff icons
+    'Hot Wings': icon('Hot Wings.png', 'HW'),
+    'Squash Soup': iconCandidates('SS', ['Squash Soup.png', 'Squash Soup Icon.png']),
+    'Sorbet': icon('Watermelon Sorbet Icon.png', 'S'),
+    'Watermelon Sorbet': icon('Watermelon Sorbet Icon.png', 'S'),
+    'Flask': iconCandidates('F', ['Flask of potecy Icon.png', 'Flask of potency Icon.png', 'Flask.png']),
+    'Wild Storm': iconCandidates('WS', ['Wildstrom Exlier.png', 'Wildstorm Exlier.png', 'Wild Storm.png', 'Wild Storm Icon.png']),
+    'Forger': iconCandidates('F', ['Forger Box Icon.png', 'Forger.png', 'Forger Icon.png']),
+    'Totem': iconCandidates('T', ['Spider totem icon.png', 'Spider Totem Icon.png', 'Totem.png', 'Totem Icon.png']),
+    'Sunlord': iconCandidates('S', ['Sunlord exlier Icon.png', 'Sunlord Elixir Icon.png', 'Sunlord.png', 'Sunlord Icon.png']),
+
+    // Uploaded guild boon icons
+    'Guild Pow': icon('Guild Power Boon Icon.png', 'GP'),
+    'Guild Power': icon('Guild Power Boon Icon.png', 'GP'),
+    'Guild Acc': icon('Guild Accuracy Boon Icon.png', 'GA'),
+    'Guild Accuracy': icon('Guild Accuracy Boon Icon.png', 'GA'),
+    'Guild Crit Str': iconCandidates('GC', ['Guild Crit Str Boon Icon.png', 'Guild Critical Strike Boon Icon.png', 'Guild Crit Str.png']),
+    'Guild OGH': iconCandidates('GO', ['Guild OGH Boon Icon.png', 'Guild OGH.png']),
+    'Guild Aware': iconCandidates('GW', ['Guild Awareness Boon Icon.png', 'Guild Aware.png']),
+
+    // Uploaded aura / team buff icons
+    'Mystic Aura': icon('Mystic Aura.png', 'MA'),
+    'Runic Aura': iconCandidates('RA', ['Runic Aura Icon.png', 'Runic Aura.png']),
+    'Pack #1': iconCandidates('P1', ['Pack Tactics Icon.png', 'Pack Tactics.png']),
+    'Pack #2': iconCandidates('P2', ['Pack Tactics Icon.png', 'Pack Tactics.png']),
+    'Pack Tactics': iconCandidates('PT', ['Pack Tactics Icon.png', 'Pack Tactics.png']),
+    'Avian Aura(s)': icon('Avian Aura.png', 'AA'),
+    'Avian Aura': icon('Avian Aura.png', 'AA'),
+    'Pally Crit Aura': iconCandidates('PC', ['Paladin Crtical Strike Aura.png', 'Paladin Critical Strike Aura.png', 'Pally Crit Aura.png']),
+    'Pally Def Aura': iconCandidates('PD', ['Paladin Defense Aura.png', 'Pally Def Aura.png']),
+    'Blue Fire Eye': iconCandidates('BF', ['Bluefire Eye Icon.png', 'Blue Fire Eye Icon.png', 'Blue Fire Eye.png', 'Bluefire Eye.png']),
+
+    // Uploaded companion icons
+    'Raptor x4': iconCandidates('RX', ['Raptor Icon.png', 'Raptor.png']),
+    'Raptor': iconCandidates('RX', ['Raptor Icon.png', 'Raptor.png']),
+    'Portobello': iconCandidates('P', ['Portebelo Icon.png', 'Portobello Icon.png', 'Portobello.png']),
+    'Tutor': iconCandidates('T', ['Tutor Icon.png', 'Tutor.png']),
+    'Flapjack': iconCandidates('FJ', ['Flapjack Icon.png', 'Flapjack.png']),
+    'Drizzt': iconCandidates('D', ['Driz Icon.png', 'Drizzt Icon.png', 'Drizzt.png']),
+    'Driz': iconCandidates('D', ['Driz Icon.png', 'Drizzt Icon.png', 'Drizzt.png']),
+    'Etrien': iconCandidates('ET', ['Etrien Icon.png', 'Etrien.png']),
+    'Captain Sartell': iconCandidates('CS', ['Startel Icon.png', 'Sartell Icon.png', 'Captain Sartell Icon.png', 'Captain Sartell.png']),
+    'Minsc': iconCandidates('M', ['minsc Icon.png', 'Minsc Icon.png', 'Minsc.png']),
+
+    // Extra manual labels
+    'Fizzy Brew': iconCandidates('FB', ['Fizzy Brew.png', 'Fizzy Brew Icon.png']),
+    'Seed Bread': iconCandidates('SB', ['Seed Bread.png', 'Seed Bread Icon.png']),
+    'Defense Potion': iconCandidates('DP', ['Defense Potion.png', 'Defense Potion Icon.png']),
+    'Power Potion': iconCandidates('PP', ['Power Potion.png', 'Power Potion Icon.png']),
+    'Crit Str Potion': iconCandidates('CP', ['Crit Str Potion.png', 'Crit Str Potion Icon.png']),
+    'Steadfast Elixir': iconCandidates('SE', ['Steadfast Elixir.png', 'Steadfast Elixir Icon.png']),
+    'Chain': iconCandidates('CH', ['Chain.png', 'Chain Icon.png']),
+    'Other': { icon: 'OT' }
+  }
+};
