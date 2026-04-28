@@ -1,0 +1,322 @@
+{
+  "copied": [
+    {
+      "source": "Icons/Avian Aura.png",
+      "target": "assets/Icons/avian-aura.png",
+      "bytes": 5906,
+      "md5": "6fda75b1507b828662ba65741d9649c6"
+    },
+    {
+      "source": "Icons/Blesed Adv. Master boon Icon.png",
+      "target": "assets/Icons/blessed-advantage-master-boon.png",
+      "bytes": 6678,
+      "md5": "c8d31c0d511af02cf8ac239fcd8b980e"
+    },
+    {
+      "source": "Icons/Bluefire Eye Icon.png",
+      "target": "assets/Icons/blue-fire-eye.png",
+      "bytes": 3617,
+      "md5": "c928588d0c4a2a15e6d09cb95475f5d7"
+    },
+    {
+      "source": "Icons/classes/cleric.webp",
+      "target": "assets/Icons/classes/cleric.webp",
+      "bytes": 25650,
+      "md5": "4e7299645035767af69818417a3a56c6"
+    },
+    {
+      "source": "Icons/Crtical Sev Collar.png",
+      "target": "assets/Icons/critical-severity-collar.png",
+      "bytes": 10236,
+      "md5": "baa7d9b73e29a59d8f17ad7808c034af"
+    },
+    {
+      "source": "Icons/Driz Icon.png",
+      "target": "assets/Icons/drizzt.png",
+      "bytes": 10979,
+      "md5": "257ce5f5f4a52db4d25ad24970c838b3"
+    },
+    {
+      "source": "Icons/Etrien.png",
+      "target": "assets/Icons/etrien.png",
+      "bytes": 9396,
+      "md5": "dbe8e748e247f115cf5a3f48836a7c32"
+    },
+    {
+      "source": "Icons/Flapjack.png",
+      "target": "assets/Icons/flapjack.png",
+      "bytes": 11331,
+      "md5": "1beec3ce8847c7e5d9ec7b4387090fc8"
+    },
+    {
+      "source": "Icons/Flask of potecy Icon.png",
+      "target": "assets/Icons/flask-of-potency.png",
+      "bytes": 4476,
+      "md5": "22e90d42e074c4a91ce3e6c6839ebef9"
+    },
+    {
+      "source": "Icons/Forger Box Icon.png",
+      "target": "assets/Icons/forger-box.png",
+      "bytes": 4984,
+      "md5": "a125305c8dc65aa1f8946657a73c50b3"
+    },
+    {
+      "source": "Icons/Guild Accuracy Boon Icon.png",
+      "target": "assets/Icons/guild-accuracy-boon.png",
+      "bytes": 3761,
+      "md5": "d0efd60b16157d015bf3d9110d6173e3"
+    },
+    {
+      "source": "Icons/Guild Power Boon Icon.png",
+      "target": "assets/Icons/guild-power-boon.png",
+      "bytes": 4581,
+      "md5": "2a9062de4540c2ea64255461126047e3"
+    },
+    {
+      "source": "Icons/Guild Strike Strike Boon Icon.png",
+      "target": "assets/Icons/guild-critical-strike-boon.png",
+      "bytes": 3181,
+      "md5": "77377ff1a4a6437949fc1ce5d1af8924"
+    },
+    {
+      "source": "Icons/Hot Wings.png",
+      "target": "assets/Icons/hot-wings.png",
+      "bytes": 3807,
+      "md5": "9ca69acac20586dd7ea559b4fc9778fc"
+    },
+    {
+      "source": "Icons/minsc Icon.png",
+      "target": "assets/Icons/minsc.png",
+      "bytes": 11548,
+      "md5": "f4777491283bce507d1e3ff8b3ec78fc"
+    },
+    {
+      "source": "Icons/Mystic Aura.png",
+      "target": "assets/Icons/mystic-aura.png",
+      "bytes": 6503,
+      "md5": "9f08b7ce9227bd32f7b98ed6762241f9"
+    },
+    {
+      "source": "Icons/Pack Tactics Icon.png",
+      "target": "assets/Icons/pack-tactics.png",
+      "bytes": 7203,
+      "md5": "2cbbf6b8aac17d698c05ebd718b50662"
+    },
+    {
+      "source": "Icons/Paladin Crtical Strike Aura.png",
+      "target": "assets/Icons/paladin-critical-strike-aura.png",
+      "bytes": 9812,
+      "md5": "8ea5c17061ac09ec68a8a09dcb82f9ea"
+    },
+    {
+      "source": "Icons/Portebelo Icon.png",
+      "target": "assets/Icons/portobello.png",
+      "bytes": 11394,
+      "md5": "f138a3f819fd3bfbc59f6d2824537e47"
+    },
+    {
+      "source": "Icons/races/aasimar (1).webp",
+      "target": "assets/Icons/races/aasimar.webp",
+      "bytes": 3418,
+      "md5": "b2c08260422cff4c8d7b64c7963e3aba"
+    },
+    {
+      "source": "Icons/races/dragonborn.webp",
+      "target": "assets/Icons/races/dragonborn.webp",
+      "bytes": 2024,
+      "md5": "f2f726856e1078d029a735220342a702"
+    },
+    {
+      "source": "Icons/races/drow (1).webp",
+      "target": "assets/Icons/races/drow.webp",
+      "bytes": 2576,
+      "md5": "dfa225e5973572f976d01628640cda85"
+    },
+    {
+      "source": "Icons/races/drow.webp",
+      "target": "assets/Icons/races/drow-alt.webp",
+      "bytes": 1398,
+      "md5": "2d9db2428bb06a16b4c97e0652149cdd"
+    },
+    {
+      "source": "Icons/races/dwarf (1).webp",
+      "target": "assets/Icons/races/dwarf.webp",
+      "bytes": 1316,
+      "md5": "cdbf1850e89f4e998c24e0f702b5fcdb"
+    },
+    {
+      "source": "Icons/races/gith (1).webp",
+      "target": "assets/Icons/races/gith.webp",
+      "bytes": 1386,
+      "md5": "5efe6cdcd197ce2ae1271f0de1226277"
+    },
+    {
+      "source": "Icons/races/half-elf (1).webp",
+      "target": "assets/Icons/races/half-elf.webp",
+      "bytes": 1670,
+      "md5": "3ed0ff115907b75416c71ff14f35eb50"
+    },
+    {
+      "source": "Icons/races/half-orc (1).webp",
+      "target": "assets/Icons/races/half-orc.webp",
+      "bytes": 1844,
+      "md5": "6c56c133c8ddb881c4da115584853475"
+    },
+    {
+      "source": "Icons/races/halfling (1).webp",
+      "target": "assets/Icons/races/halfling.webp",
+      "bytes": 1182,
+      "md5": "f1baa8520538ea3e67c556dcfe236f4f"
+    },
+    {
+      "source": "Icons/races/menzoberranzan-renegade (1).webp",
+      "target": "assets/Icons/races/menzoberranzan-renegade.webp",
+      "bytes": 2616,
+      "md5": "f6ddd6e2a02b3b6337533cbc9d373f81"
+    },
+    {
+      "source": "Icons/races/metallic-dragonborn.webp",
+      "target": "assets/Icons/races/metallic-dragonborn.webp",
+      "bytes": 2024,
+      "md5": "f2f726856e1078d029a735220342a702"
+    },
+    {
+      "source": "Icons/races/moon-elf (1).webp",
+      "target": "assets/Icons/races/moon-elf.webp",
+      "bytes": 1796,
+      "md5": "7913edc7a10568e41bb2c7df8525a8e7"
+    },
+    {
+      "source": "Icons/races/sun-elf (1).webp",
+      "target": "assets/Icons/races/sun-elf.webp",
+      "bytes": 1666,
+      "md5": "7a0adf5e6a6b672f45ce6e83eb624d53"
+    },
+    {
+      "source": "Icons/races/tiefling (1).webp",
+      "target": "assets/Icons/races/tiefling.webp",
+      "bytes": 1510,
+      "md5": "ac13118430a2beb0bea1ad8bcbe71d9c"
+    },
+    {
+      "source": "Icons/races/wood-elf (1).webp",
+      "target": "assets/Icons/races/wood-elf.webp",
+      "bytes": 1178,
+      "md5": "a0f7512c839d3dd01e9b29406bfc3550"
+    },
+    {
+      "source": "Icons/Raptor Icon.png",
+      "target": "assets/Icons/raptor.png",
+      "bytes": 10557,
+      "md5": "4f1793be977c85f256caa33c7c213697"
+    },
+    {
+      "source": "Icons/Runic Aura Icon.png",
+      "target": "assets/Icons/runic-aura.png",
+      "bytes": 5379,
+      "md5": "409351905edd15b267d42d4f639301e3"
+    },
+    {
+      "source": "Icons/Spider totem icon.png",
+      "target": "assets/Icons/spider-totem.png",
+      "bytes": 5663,
+      "md5": "61728313e18b8b70521e971ce43ff342"
+    },
+    {
+      "source": "Icons/Startel Icon.png",
+      "target": "assets/Icons/captain-sartell.png",
+      "bytes": 10186,
+      "md5": "b076c7ded34ca1656322d7e1bb0f716f"
+    },
+    {
+      "source": "Icons/Sunlord exlier Icon.png",
+      "target": "assets/Icons/sunlord-elixir.png",
+      "bytes": 4861,
+      "md5": "0d4392e0409f751f7a2dc169969ea638"
+    },
+    {
+      "source": "Icons/Tutor Icon.png",
+      "target": "assets/Icons/tutor.png",
+      "bytes": 10185,
+      "md5": "a36371de903b5ebcc2ecf6e8ebd4e746"
+    },
+    {
+      "source": "Icons/Watermelon Sorbet Icon.png",
+      "target": "assets/Icons/watermelon-sorbet.png",
+      "bytes": 3842,
+      "md5": "983131d1a0145c4772584cca4b0ad008"
+    },
+    {
+      "source": "Icons/Wildstrom Exlier.png",
+      "target": "assets/Icons/wild-storm-elixir.png",
+      "bytes": 4226,
+      "md5": "340a166bdc182a1f24f8be5fb683650c"
+    }
+  ],
+  "skipped_empty": [
+    {
+      "source": "Icons/classes/barbarian.webp",
+      "target": "assets/Icons/classes/barbarian.webp"
+    },
+    {
+      "source": "Icons/classes/bard.webp",
+      "target": "assets/Icons/classes/bard.webp"
+    },
+    {
+      "source": "Icons/classes/fighter.webp",
+      "target": "assets/Icons/classes/fighter.webp"
+    },
+    {
+      "source": "Icons/classes/paladin.webp",
+      "target": "assets/Icons/classes/paladin.webp"
+    },
+    {
+      "source": "Icons/classes/ranger.webp",
+      "target": "assets/Icons/classes/ranger.webp"
+    },
+    {
+      "source": "Icons/classes/rogue.webp",
+      "target": "assets/Icons/classes/rogue.webp"
+    },
+    {
+      "source": "Icons/classes/warlock.webp",
+      "target": "assets/Icons/classes/warlock.webp"
+    },
+    {
+      "source": "Icons/classes/wizard.webp",
+      "target": "assets/Icons/classes/wizard.webp"
+    },
+    {
+      "source": "Icons/companions/drizzt.webp",
+      "target": "assets/Icons/companions/drizzt.webp"
+    },
+    {
+      "source": "Icons/companions/etrien.webp",
+      "target": "assets/Icons/companions/etrien.webp"
+    },
+    {
+      "source": "Icons/companions/minsc.webp",
+      "target": "assets/Icons/companions/minsc.webp"
+    },
+    {
+      "source": "Icons/companions/portobello.webp",
+      "target": "assets/Icons/companions/portobello.webp"
+    },
+    {
+      "source": "Icons/companions/raptor.webp",
+      "target": "assets/Icons/companions/raptor.webp"
+    },
+    {
+      "source": "Icons/companions/tutor.webp",
+      "target": "assets/Icons/companions/tutor.webp"
+    }
+  ],
+  "skipped_invalid": [
+    {
+      "source": "Icons/companions/flapjack.webp",
+      "target": "assets/Icons/companions/flapjack.webp",
+      "reason": "cannot identify image file <_io.BytesIO object at 0x7ea1ea51b2b0>"
+    }
+  ],
+  "unmapped": []
+}
