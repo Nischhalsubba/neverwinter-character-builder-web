@@ -1,16 +1,98 @@
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-<title>Neverwinter Character Builder Web</title>
-<link rel='stylesheet' href='styles.css'>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neverwinter Character Builder & DPS Calculator | Web Build Planner</title>
+  <meta name="description" content="Plan Neverwinter DPS, healer, and tank builds with a browser-based character builder converted from the NW Char Builder workbook. Calculate ratings, buffs, damage, healing, and defensive stats locally.">
+  <meta name="keywords" content="Neverwinter character builder, Neverwinter DPS calculator, Neverwinter build planner, Neverwinter healer calculator, Neverwinter tank calculator, Neverwinter stats calculator, Neverwinter web tool">
+  <meta name="author" content="Nischhal Raj Subba">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="theme-color" content="#08111f">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Neverwinter Character Builder Web">
+  <meta property="og:title" content="Neverwinter Character Builder & DPS Calculator">
+  <meta property="og:description" content="Create and compare Neverwinter DPS, healer, and tank builds using a browser-based version of the NW Char Builder workbook.">
+  <meta property="og:image" content="docs/images/readme-hero.svg">
+  <meta property="og:image:alt" content="Neverwinter Character Builder web calculator interface">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Neverwinter Character Builder & DPS Calculator">
+  <meta name="twitter:description" content="A browser-based Neverwinter build planner with DPS, healer, tank, buff, and rating calculations.">
+  <meta name="twitter:image" content="docs/images/readme-hero.svg">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Neverwinter Character Builder Web",
+    "applicationCategory": "GameApplication",
+    "applicationSubCategory": "Character builder and combat-stat calculator",
+    "operatingSystem": "Any operating system with a modern web browser",
+    "description": "A browser-based Neverwinter character builder converted from the NW Char Builder workbook, with DPS, healer, tank, buff, rating, and damage calculations.",
+    "softwareVersion": "1.0.0",
+    "isAccessibleForFree": true,
+    "license": "https://github.com/Nischhalsubba/neverwinter-character-builder-web",
+    "author": {
+      "@type": "Person",
+      "name": "Nischhal Raj Subba",
+      "url": "https://github.com/Nischhalsubba"
+    },
+    "codeRepository": "https://github.com/Nischhalsubba/neverwinter-character-builder-web",
+    "featureList": [
+      "Neverwinter DPS build calculator",
+      "Neverwinter healer stat calculator",
+      "Neverwinter tank stat calculator",
+      "Damage estimator",
+      "Self and team buff calculations",
+      "Class and race toggles",
+      "JSON build import and export",
+      "Excel formula inspection"
+    ]
+  }
+  </script>
 </head>
 <body>
-<div id='app'>Loading...</div>
-<script src='src/assets.js'></script>
-<script src='src/sheet-1.js'></script>
-<script src='src/sheet-2.js'></script>
-<script src='src/sheet-3.js'></script>
-<script src='src/sheet-4.js'></script>
-<script src='src/sheet-5.js'></script>
-<script src='src/app.js'></script>
+  <header class="seo-intro" aria-labelledby="seo-title">
+    <h1 id="seo-title">Neverwinter Character Builder and DPS Calculator</h1>
+    <p>
+      Build and review Neverwinter DPS, healer, and tank setups in your browser. Enter ratings, gear bonuses,
+      buffs, class and race options, and miscellaneous values to calculate final combat statistics using formulas
+      translated from the NW Char Builder workbook.
+    </p>
+  </header>
+
+  <main id="app" aria-live="polite">
+    <p>Loading the Neverwinter character builder…</p>
+  </main>
+
+  <noscript>
+    <section>
+      <h2>About this Neverwinter build planner</h2>
+      <p>
+        This web application includes DPS, MSOD DPS, healer, and tank templates. It calculates final ratings,
+        damage estimates, self buffs, team buffs, class and race modifiers, and other workbook-derived values.
+        JavaScript is required to use the interactive calculator.
+      </p>
+      <h2>Available calculators</h2>
+      <ul>
+        <li>Neverwinter DPS character builder</li>
+        <li>Neverwinter MSOD DPS calculator</li>
+        <li>Neverwinter healer stat calculator</li>
+        <li>Neverwinter tank defensive-stat calculator</li>
+      </ul>
+    </section>
+  </noscript>
+
+  <script src="src/assets.js"></script>
+  <script src="src/sheet-1.js"></script>
+  <script src="src/sheet-2.js"></script>
+  <script src="src/sheet-3.js"></script>
+  <script src="src/sheet-4.js"></script>
+  <script src="src/sheet-5.js"></script>
+  <script src="src/app.js"></script>
 </body>
 </html>
