@@ -1,0 +1,41 @@
+# Neverwinter Character Builder Web
+
+A browser-based Neverwinter character builder and combat-stat calculator converted from the NW Char Builder Excel workbook.
+
+## Primary use cases
+
+- Build Neverwinter DPS characters.
+- Calculate DPS ratings and estimated damage.
+- Review MSOD DPS values.
+- Calculate healer statistics.
+- Calculate tank and defensive statistics.
+- Apply self buffs, team buffs, class toggles, race toggles, gear bonuses, and miscellaneous values.
+- Inspect original workbook formulas.
+- Export and import builds as JSON.
+
+## Main calculator templates
+
+- DPS Template
+- MSOD DPS Template
+- HEAL Template
+- TANK Template
+
+## Technical summary
+
+- Static HTML, CSS, and JavaScript application.
+- No required backend or account.
+- Workbook data and formulas are represented in generated JavaScript files.
+- Formula verification is available through `npm test`.
+- Static build generation is available through `npm run build`.
+
+## Repository
+
+https://github.com/Nischhalsubba/neverwinter-character-builder-web
+
+## Accuracy note
+
+Neverwinter balance values change between patches. Formula constants and game values should be verified before competitive or public use.
+
+## Disclaimer
+
+This is an independent community project and is not affiliated with or endorsed by Cryptic Studios, Arc Games, Gearbox Publishing, or the Neverwinter rights holders.
