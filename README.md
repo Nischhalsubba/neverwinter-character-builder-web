@@ -4,6 +4,94 @@
 
 # Neverwinter Character Builder Web
 
+<!-- interactive-readme-standard:start -->
+
+> [!NOTE]
+> **Branch-specific documentation:** this section is maintained for [`main`](https://github.com/Nischhalsubba/neverwinter-character-builder-web/tree/main). It is generated from the files present on this branch and preserves the project-authored README below.
+
+<details open>
+<summary><strong>Interactive repository guide</strong></summary>
+
+## Branch overview
+
+| Item | Value |
+|---|---|
+| Repository | [`Nischhalsubba/neverwinter-character-builder-web`](https://github.com/Nischhalsubba/neverwinter-character-builder-web) |
+| Branch | [`main`](https://github.com/Nischhalsubba/neverwinter-character-builder-web/tree/main) |
+| Detected stack | JavaScript, HTML, CSS |
+| Detected manifests | package.json |
+| Documentation policy | Every maintained branch must explain purpose, setup, structure, architecture, flows, testing, delivery, security, and ownership. |
+
+## Repository structure
+
+```mermaid
+flowchart TD
+    ROOT["neverwinter-character-builder-web / main"]
+    ROOT --> P0[".github/"]
+    ROOT --> P1["assets/"]
+    ROOT --> P2["docs/"]
+    ROOT --> P3["scripts/"]
+    ROOT --> P4["src/"]
+    ROOT --> P5["tests/"]
+    ROOT --> P6[".gitignore"]
+    ROOT --> P7[".nojekyll"]
+    ROOT --> P8["AGENTS.md"]
+    ROOT --> P9["index.html"]
+    ROOT --> P10["llms.txt"]
+    ROOT --> P11["package.json"]
+    ROOT --> P12["robots.txt"]
+    ROOT --> P13["styles.css"]
+    ROOT --> P14["vercel.json"]
+```
+
+The diagram is generated from the branch's actual top-level files and directories. Use the branch link above for complete source navigation.
+
+## Website or application structure
+
+```mermaid
+flowchart TD
+    APP["neverwinter-character-builder-web"]
+    APP --> SOURCE["No conventional route directory detected"]
+    SOURCE --> VERIFY["Inspect the project-specific documentation below"]
+```
+
+## Application and responsibility flow
+
+```mermaid
+flowchart LR
+    ACTOR["User / contributor"]
+    ACTOR --> A0["Interface: src"]
+    A0 --> A1["Quality: tests"]
+    A1 --> A2["Documentation: docs"]
+    A2 --> A3["Delivery: .github, scripts"]
+    A3 --> DELIVERY["Delivery: vercel.json, GitHub Actions"]
+```
+
+## Change-to-delivery flow
+
+```mermaid
+flowchart LR
+    CHANGE["Change on main"]
+    CHECK["Validate: npm run start, npm run build, npm run test"]
+    REVIEW["Review documentation and architecture impact"]
+    RELEASE["Merge, release, or deploy according to this branch"]
+    CHANGE --> CHECK --> REVIEW --> RELEASE
+```
+
+## README requirements for this branch
+
+- Explain what this branch contains and how it differs from the default branch.
+- Keep installation, configuration, usage, testing, deployment, security, support, and license information accurate.
+- Document repository, website or application, API, data, authentication, background-job, and deployment flows when they exist.
+- Prefer Mermaid diagrams and expandable `<details>` sections for visual navigation.
+- Link diagrams and modules to real source paths; never invent missing components.
+- Preserve project-specific documentation and update diagrams whenever architecture or major paths change.
+- Treat secrets, private infrastructure, customer data, and credentials as prohibited README content.
+
+</details>
+
+<!-- interactive-readme-standard:end -->
+
 ### Workbook-driven stat and damage calculator with a clearer browser interface
 
 A static web calculator generated from `NW Char Builder.xlsx`. It preserves the workbook's manual inputs, source sheets, important cell addresses, and formula dependencies while organizing them into web-friendly sections.
