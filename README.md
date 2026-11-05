@@ -69,3 +69,8 @@ Use natural terms such as **Neverwinter character builder, Neverwinter build pla
 flowchart LR
     DATA["Game data / rule change"] --> VERIFY["Verify source/version"] --> IMPLEMENT["Update data or builder"] --> TEST["Test valid + invalid builds"] --> DOCS["Document assumptions"] --> PR["Pull request"]
 ```
+
+
+## GitHub Pages root-level structure
+
+This repository stores the source entry point and support assets in the repository root. Run `npm test && npm run build`; the generated `dist/` directory is published by the GitHub Actions Pages workflow (select **GitHub Actions** in Settings → Pages). The nested-site readme is preserved in `docs/legacy-site-readme.md`.

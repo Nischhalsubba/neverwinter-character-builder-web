@@ -12,7 +12,9 @@ const entriesToCopy = [
   'index.html',
   'styles.css',
   'src',
-  'assets'
+  'assets',
+  'robots.txt',
+  '.nojekyll'
 ];
 
 function normaliseSlashes(value) {
