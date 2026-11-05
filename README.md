@@ -73,4 +73,4 @@ flowchart LR
 
 ## GitHub Pages root-level structure
 
-This repository stores the source entry point and support assets in the repository root. Run `npm test && npm run build`; the generated `dist/` directory is published by the GitHub Actions Pages workflow (select **GitHub Actions** in Settings → Pages). The nested-site readme is preserved in `docs/legacy-site-readme.md`.
+This repository stores the source entry point and support assets in the repository root. Run `npm test && npm run build`; the generated `dist/` directory is ready for the GitHub Actions Pages workflow. **One-time activation is required:** in Settings → Pages, choose **GitHub Actions**. The CI automatically validates builds and skips deployment while Pages is disabled; after activation, subsequent pushes deploy `dist/`. The nested-site readme is preserved in `docs/legacy-site-readme.md`.

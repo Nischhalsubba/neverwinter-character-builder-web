@@ -18,6 +18,8 @@ concurrency:
 jobs:
   check:
     runs-on: ubuntu-latest
+    outputs:
+      pages_enabled: ${{ steps.pages_mode.outputs.enabled }}
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -31,17 +33,34 @@ jobs:
         run: npm run build
       - name: Verify static publishing artifacts
         run: test -f index.html && test -f dist/index.html && test -f dist/robots.txt && test -d dist/assets
-      - name: Configure Pages
+      - name: Detect whether GitHub Pages is enabled
         if: github.event_name == 'push'
+        id: pages_mode
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          status=$(curl -sS -o /tmp/github-pages.json -w '%{http_code}' -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/$GITHUB_REPOSITORY/pages")
+          if [ "$status" = '200' ]; then
+            echo 'enabled=true' >> "$GITHUB_OUTPUT"
+          elif [ "$status" = '404' ]; then
+            echo 'enabled=false' >> "$GITHUB_OUTPUT"
+            echo 'GitHub Pages is not enabled. Select Settings > Pages > GitHub Actions to activate publication.'
+          else
+            cat /tmp/github-pages.json
+            exit 1
+          fi
+      - name: Configure Pages
+        if: github.event_name == 'push' && steps.pages_mode.outputs.enabled == 'true'
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && steps.pages_mode.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
 
   deploy:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && needs.check.outputs.pages_enabled == 'true'
     runs-on: ubuntu-latest
     needs: check
     environment:
