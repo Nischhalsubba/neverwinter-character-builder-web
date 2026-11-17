@@ -48,12 +48,17 @@ flowchart TD
 
 ## Getting started
 
+This is a static site with build and verification scripts at the repository root. Use Node.js for the build/test scripts and Python for the static HTTP server.
+
 ```bash
 git clone https://github.com/Nischhalsubba/neverwinter-character-builder-web.git
 cd neverwinter-character-builder-web
+npm run build
+npm run test
+npm run start
 ```
 
-Use the manifests and lockfiles in the repository to determine the current package manager and commands.
+Open `http://localhost:5173` after starting the server.
 
 ## Product & design principles
 
