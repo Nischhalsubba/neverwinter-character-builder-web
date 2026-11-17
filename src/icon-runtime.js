@@ -61,6 +61,8 @@
 
   function normalizeLabel(value) {
     let text = String(value || '')
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
       .trim()
       .toLowerCase()
       .replace(/&/g, 'and')
