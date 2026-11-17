@@ -489,7 +489,7 @@ function importJson(e) {
   reader.onload = () => {
     try {
       const imported = JSON.parse(reader.result);
-      if (imported.sheets) {
+      if (window.NW_VALIDATE_WORKBOOK(imported)) {
         workbook.sheets = imported.sheets;
         activeSheetIndex = Math.min(activeSheetIndex, workbook.sheets.length - 1);
         render();
@@ -498,6 +498,10 @@ function importJson(e) {
       alert('Could not import JSON');
     }
   };
+  if (file.size > 2_000_000) {
+    alert('Workbook file is too large to import');
+    return;
+  }
   reader.readAsText(file);
 }
 
