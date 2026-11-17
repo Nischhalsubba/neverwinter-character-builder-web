@@ -489,7 +489,7 @@ function importJson(e) {
   reader.onload = () => {
     try {
       const imported = JSON.parse(reader.result);
-      if (window.NW_VALIDATE_WORKBOOK(imported)) {
+      if (window.NW_VALIDATE_WORKBOOK(imported, window.WORKBOOK_SHEETS)) {
         workbook.sheets = imported.sheets;
         activeSheetIndex = Math.min(activeSheetIndex, workbook.sheets.length - 1);
         render();
