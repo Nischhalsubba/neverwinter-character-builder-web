@@ -26,6 +26,7 @@ test('missing index.html fails before overwriting existing dist', async (t) => {
   assert.notEqual(result.status, 0);
   assert.match(result.stderr, /Required build input missing: index\.html/);
   assert.equal(await readFile(join(directory, 'dist', 'previous.html'), 'utf8'), 'keep');
+  await assert.rejects(readFile(join(directory, 'src', 'icon-manifest.js')), { code: 'ENOENT' });
 });
 
 test('complete required files produce a build without optional files', async (t) => {
