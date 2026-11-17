@@ -498,8 +498,14 @@ function importJson(e) {
       alert('Could not import JSON');
     }
   };
+  reader.onerror = () => alert('Could not read the selected workbook file');
+  reader.onloadend = () => {
+    // Reset the picker so the same file can be selected again after an error.
+    e.target.value = '';
+  };
   if (file.size > 2_000_000) {
     alert('Workbook file is too large to import');
+    e.target.value = '';
     return;
   }
   reader.readAsText(file);
