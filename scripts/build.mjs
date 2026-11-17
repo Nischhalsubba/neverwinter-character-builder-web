@@ -83,11 +83,6 @@ async function walkImages(dir) {
   return found.sort((a, b) => a.path.localeCompare(b.path));
 }
 
-const icons = await walkImages(iconRoot);
-const manifestContent = `// Auto-generated during build by scripts/build.mjs.\n// Do not edit manually. Upload icons into assets/Icons/ and rebuild.\nwindow.NW_ICON_MANIFEST = ${JSON.stringify(icons, null, 2)};\n`;
-await writeFile(manifestPath, manifestContent, 'utf8');
-console.log(`Generated src/icon-manifest.js with ${icons.length} uploaded icon(s).`);
-
 // Check required inputs before replacing an existing successful dist build.
 const optionalEntries = new Set(['robots.txt', '.nojekyll']);
 for (const entry of entriesToCopy) {
@@ -95,6 +90,11 @@ for (const entry of entriesToCopy) {
     throw new Error(`Required build input missing: ${entry}`);
   }
 }
+
+const icons = await walkImages(iconRoot);
+const manifestContent = `// Auto-generated during build by scripts/build.mjs.\n// Do not edit manually. Upload icons into assets/Icons/ and rebuild.\nwindow.NW_ICON_MANIFEST = ${JSON.stringify(icons, null, 2)};\n`;
+await writeFile(manifestPath, manifestContent, 'utf8');
+console.log(`Generated src/icon-manifest.js with ${icons.length} uploaded icon(s).`);
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
