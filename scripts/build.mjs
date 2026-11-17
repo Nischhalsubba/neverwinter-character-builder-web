@@ -88,16 +88,27 @@ const manifestContent = `// Auto-generated during build by scripts/build.mjs.\n/
 await writeFile(manifestPath, manifestContent, 'utf8');
 console.log(`Generated src/icon-manifest.js with ${icons.length} uploaded icon(s).`);
 
+// Check required inputs before replacing an existing successful dist build.
+const optionalEntries = new Set(['robots.txt', '.nojekyll']);
+for (const entry of entriesToCopy) {
+  if (!optionalEntries.has(entry) && !(await pathExists(join(root, entry)))) {
+    throw new Error(`Required build input missing: ${entry}`);
+  }
+}
+
 await rm(dist, { recursive: true, force: true });
 await mkdir(dist, { recursive: true });
 
 for (const entry of entriesToCopy) {
   try {
-    await stat(join(root, entry));
     await cp(join(root, entry), join(dist, entry), { recursive: true });
     console.log(`Copied ${entry} -> dist/${entry}`);
   } catch (error) {
-    console.warn(`Skipped ${entry}: ${error.message}`);
+    if (optionalEntries.has(entry) && error?.code === 'ENOENT') {
+      console.warn(`Skipped optional ${entry}: ${error.message}`);
+      continue;
+    }
+    throw new Error(`Failed to copy required build input ${entry}: ${error.message}`, { cause: error });
   }
 }
 
