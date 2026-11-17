@@ -476,10 +476,14 @@ function bindTabsOnly() {
 function exportJson() {
   const blob = new Blob([JSON.stringify(workbook, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  const objectUrl = URL.createObjectURL(blob);
+  a.href = objectUrl;
   a.download = 'neverwinter-build.json';
+  document.body.appendChild(a);
   a.click();
-  URL.revokeObjectURL(a.href);
+  a.remove();
+  // Give the browser time to start saving before releasing the blob.
+  setTimeout(() => URL.revokeObjectURL(objectUrl), 10_000);
 }
 
 function importJson(e) {
