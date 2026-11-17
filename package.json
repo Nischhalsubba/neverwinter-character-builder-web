@@ -7,7 +7,7 @@
   "scripts": {
     "build": "node scripts/build.mjs",
     "start": "python -m http.server 5173",
-    "test": "node tests/verify-formulas.mjs"
+    "test": "node tests/verify-formulas.mjs && node --test tests/verify-build.mjs"
   },
   "keywords": [
     "neverwinter",
